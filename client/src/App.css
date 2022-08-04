@@ -1,0 +1,367 @@
+/* App */
+.App {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Login and Register page */
+
+.Login, .Register {
+  margin: 0 auto;
+  margin-top: 7%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid #eaeced;
+  text-align: center;
+  width: 35%;
+  padding: 1em;
+}
+.lr-input {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: bold;
+  margin: 1em;
+  height: 40px;
+  border: 0.0625rem solid #9da3a6;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 16px;
+}
+.lr-logo img {
+  height: 80px;
+  width: 80px;
+}
+.loginpage-buttons{
+  width: 100%;
+}
+.loginpage-buttons Link{
+  color: white;
+}
+
+.hr-lines{
+  position: relative;
+  max-width: 1000px;
+  text-align: center;
+}
+
+.hr-lines:before{
+  content:" ";
+  height: 2px;
+  width: 180px;
+  background: #CBD2D6;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+}
+
+.hr-lines:after{
+  content:" ";
+  height: 2px;
+  width: 180px;
+  background: #CBD2D6;
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: 0;
+}
+
+.formContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.formContainer {
+  width: 100%;
+}
+
+span{
+  color: red;
+}
+
+@media (max-width: 1000px), (min-width: 894){
+  .hr-lines:before, .hr-lines:after{
+    width: 120px;
+  }
+}
+@media (max-width: 894px), (min-width: 768px){
+  .hr-lines:before, .hr-lines:after{
+    width: 100px;
+  }
+}
+
+@media (max-width: 768px){
+  .Login, .Register{
+    width: 60%;
+  }
+  .hr-lines:before, .hr-lines:after{
+    width: 60px;
+  }
+}
+
+@media (max-width: 300px) {
+  .Login, .Register{
+    width: 80%;
+  }
+  .hr-lines:before, .hr-lines:after{
+    width: 40px;
+  }
+}
+
+/* Navbar */
+#profile-page{
+  padding-left: 10px;
+}
+.profile-page-active{
+  border: solid #4047CB;
+  border-width: 2px;
+}
+
+@media (max-width: 768px) {
+  #profile-page{
+    padding-left: 0;
+  }
+}
+
+/* Home Page */
+.Home{
+  background-color: #1F1F25;
+  border-bottom: solid #1F1F25;
+}
+.home-post{
+  min-height: 100vh;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2em;
+  margin: 1em;
+}
+.post-card{
+  background-color: #313237;
+  color: white;
+  border-radius: 10px;
+  width: 55%;
+  border: 1px solid #eaeced;
+}
+.comment-section{
+  background-color: #313237;
+  color: white;
+}
+.card-img-top, .post-date{
+  height: 300px;
+  padding: 0 25px;
+}
+.add-comment{
+  font-family: 'Times New Roman', Times, serif;
+  height: 35px;
+  width: 90%;
+  font-size: 20px;
+  font-weight: 400;
+  color: gray;
+  border-radius: 5px;
+  border: none;
+}
+
+@media (max-width: 984px), (min-width: 768px) {
+  .add-comment{
+    width: 70%;
+  }
+}
+
+@media (max-width: 768px) {
+  .post-card{
+    width: 95%;
+  }
+  .home-post{
+    padding: 1em;
+    margin: 0.5em;
+  }
+  .card-img-top, .post-date{
+    padding: 0 10px;
+  }
+}
+
+/* Contact Page */
+.Contact{
+  background-color: #1F1F25;
+  border-bottom: solid #1F1F25;
+}
+.contact-page{
+  min-height: 100vh;
+}
+.contact-heading{
+  margin-top: 1em;
+  color: #333333;
+  text-align: center;
+  font-size: 3em;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  margin-bottom: 0;
+  /* border: solid red; */
+}
+.contact-description1{
+  color: gray;
+  font-size: 25px;
+  text-align: center;
+}
+.contact-description2{
+  color: gray;
+  font-size: 16px;
+  text-align: center;
+}
+
+.contactFormContainer{
+  /* border: solid white; */
+  padding: 2em;
+}
+
+.contactDetail{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  border-radius: 5px;
+  font-size: 20px;
+  height: 40px;
+  color: white;
+  border: none;
+  margin: 2em;
+  background-color: #313237;
+  width: 100%;
+  padding: 1em;
+}
+
+#contactSuggestion{
+  height: 150px;
+}
+
+/* Settings page */
+.Settings{
+  background-color: #1F1F25;
+  border-bottom: solid #1F1F25;
+}
+
+.setting-section{
+  padding: 2em;
+  min-height: 100vh;
+  color: white;
+  flex-direction: row;
+  /* border: solid blue; */
+}
+.setting-main{
+  /* border: solid red; */
+}
+.setting-main-left, .setting-main-right{
+  /* border: solid white; */
+}
+.left-profile-picture{
+  /* border: solid black; */
+  padding: 1em;
+  text-align: center;
+}
+.left-about{
+  font-size: 16px;
+  font-style: italic;
+  min-height: 120px;
+  margin: 2em 0;
+  padding: 0 2em;
+  /* border: solid violet; */
+}
+.left-skills{
+  font-size: 14px;
+  min-height: 120px;
+  padding: 0 2em;
+  margin: 2em 0;
+  /* border: solid chartreuse; */
+}
+.setting-main-right{
+  padding: 2em 3.5em;
+}
+.name-user{
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.right-upper{
+  /* border: solid red; */
+}
+.right-lower{
+  margin-top: 5em;
+  padding: 0.3em;
+  /* border: solid green; */
+}
+.hr-about{
+  background-color: wheat;
+  width: 100%;
+}
+.right-lower-details{
+  margin-top: 2em;
+  /* border: solid white; */
+}
+.nameOfAbout{
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 1em;
+}
+.detailOfAbout{
+  font-size: 18px;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 1em;
+}
+
+/* Profile pic start */
+input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+#output{
+  border-radius: 10px;
+  width: 90%;
+}
+.custom-file-upload {
+  color: #FFFFFF;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.settingDetail{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  border-radius: 5px;
+  font-size: 20px;
+  height: 40px;
+  color: white;
+  border: none;
+  margin: 2em;
+  background-color: #313237;
+  width: 100%;
+  padding: 1em;
+}
+
+.edit-button{
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .setting-section{
+    padding: 0.1;
+  }
+  .left-about, .left-skills{
+    padding: 0 0.5em;
+  }
+  .setting-main-right{
+    padding: 2em 0.5em;
+  }
+  .right-lower{
+    margin-top: 2em;
+  }
+  .right-lower-details{
+    margin-top: 1em;
+  }
+}
