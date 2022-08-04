@@ -344,8 +344,13 @@ input[type="file"] {
   padding: 1em;
 }
 
-.edit-button{
-  text-align: center;
+.edit-button-area{
+  margin-top: 3em;
+  color: #1F1F25;
+}
+.edit-form{
+  padding: 2em;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 @media (max-width: 768px) {

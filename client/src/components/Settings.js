@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Navbar from "./Navbar";
 import Spinner from "./Spinner";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import swal from "sweetalert";
 import profile from "../images/no-profile-pic.png";
 import { image } from "cloudinary-react";
@@ -15,20 +15,53 @@ export default class Settings extends Component {
       currentProfile: [],
       imageSelected: "",
       profilePicture: "",
+      newUploaded: false,
       skills: [],
+      loading: false
     };
   }
 
-  uploadImage = () => {
-    const formData = new FormData();
-    formData.append("file", this.state.imageSelected);
-    formData.append("upload_preset", "d2u9oczt");
-
+  saveProfileImage = (imageUrl) => {
     axios
-      .post("https://api.cloudinary.com/v1_1/dbcpdiy45/image/upload", formData)
-      .then((response) => {
-        console.log(response);
-      });
+     .post("http://localhost:3001/settings/saveImage", {
+      imageUrl: imageUrl,
+      accessToken: sessionStorage.getItem("accessToken")
+     }).then((response) => {
+      if(response.data.error) {
+        this.setState({loading: false})
+        swal({
+          title: "Error!",
+          text: "Please check your connection or try after sometime!",
+          icon: "error",
+          timer: 8000,
+          button: false,
+        });
+      } else {
+        swal({
+          title: "Updated successfully!",
+          text: "Please refresh to see changes!",
+          icon: "success",
+          timer: 8000,
+          button: false,
+        });
+        this.setState({loading: false})
+      }
+     })
+  }
+
+  uploadImage = () => {
+    if (this.state.newUploaded) {
+      this.setState({loading: true})
+      const formData = new FormData();
+      formData.append("file", this.state.imageSelected);
+      formData.append("upload_preset", "d2u9oczt");
+
+      axios
+        .post("https://api.cloudinary.com/v1_1/dbcpdiy45/image/upload", formData)
+        .then((response) => {
+          this.saveProfileImage(response.data.secure_url)
+        });
+    }
   };
 
   async componentDidMount() {
@@ -97,6 +130,7 @@ export default class Settings extends Component {
                         this.setState({
                           imageSelected: event.target.files[0],
                           profilePicture: URL.createObjectURL(file),
+                          newUploaded: true
                         });
                       }}
                     />
@@ -110,6 +144,8 @@ export default class Settings extends Component {
                       </label>
                     </p>
                   </div>
+
+                  <div className="btn btn-success" onClick={this.uploadImage}>Save picture</div>
                 </div>
 
                 <div className="left-about">
@@ -166,58 +202,102 @@ export default class Settings extends Component {
                 </div>
 
                 <div className="right-lower">
-                  <h4 style={{ color: 'wheat' }}>About</h4>
+                  <h4 style={{ color: "wheat" }}>About</h4>
                   <hr className="hr-about" />
 
                   <div className="right-lower-details">
                     <div className="row">
-                    <div className="col-sm-6 nameOfAbout">
-                        User Id
-                      </div>
+                      <div className="col-sm-6 nameOfAbout">User Id</div>
                       <div className="col-sm-6 detailOfAbout">
                         {this.state.currentProfile.username}
                       </div>
 
-                      <div className="col-sm-6 nameOfAbout">
-                        Name
-                      </div>
+                      <div className="col-sm-6 nameOfAbout">Name</div>
                       <div className="col-sm-6 detailOfAbout">
                         {this.state.currentProfile.name}
                       </div>
 
-                      <div className="col-sm-6 nameOfAbout">
-                        Email
-                      </div>
+                      <div className="col-sm-6 nameOfAbout">Email</div>
                       <div className="col-sm-6 detailOfAbout">
-                        <i class="fas fa-envelope"></i> {this.state.currentProfile.email}
+                        <i className="fas fa-envelope"></i>{" "}
+                        {this.state.currentProfile.email}
                       </div>
 
-                      <div className="col-sm-6 nameOfAbout">
-                        Phone
-                      </div>
+                      <div className="col-sm-6 nameOfAbout">Phone</div>
                       <div className="col-sm-6 detailOfAbout">
-                        <i class="fas fa-phone"></i> {this.state.currentProfile.phone}
+                        <i className="fas fa-phone"></i>{" "}
+                        {this.state.currentProfile.phone}
                       </div>
 
-                      <div className="col-sm-6 nameOfAbout">
-                        Location
-                      </div>
+                      <div className="col-sm-6 nameOfAbout">Location</div>
                       <div className="col-sm-6 detailOfAbout">
-                        {(this.state.currentProfile.city!=null || this.state.currentProfile.country!=null) && <i class="fas fa-map-marker-alt" style={{marginRight: '8px'}}></i>}
-                        {(this.state.currentProfile.city==null && this.state.currentProfile.country!=null) && this.state.currentProfile.country}
-                        {(this.state.currentProfile.city!=null && this.state.currentProfile.country==null) && this.state.currentProfile.city}
-                        {(this.state.currentProfile.city!=null && this.state.currentProfile.country!=null) && (this.state.currentProfile.city + ', ' + this.state.currentProfile.country)}
-                        {(this.state.currentProfile.city==null && this.state.currentProfile.country==null) && <p style={{ color: "gray" }}>Not provided</p>}
+                        {(this.state.currentProfile.city != null ||
+                          this.state.currentProfile.country != null) && (
+                            <i
+                              className="fas fa-map-marker-alt"
+                              style={{ marginRight: "8px" }}
+                            ></i>
+                          )}
+                        {this.state.currentProfile.city == null &&
+                          this.state.currentProfile.country != null &&
+                          this.state.currentProfile.country}
+                        {this.state.currentProfile.city != null &&
+                          this.state.currentProfile.country == null &&
+                          this.state.currentProfile.city}
+                        {this.state.currentProfile.city != null &&
+                          this.state.currentProfile.country != null &&
+                          this.state.currentProfile.city +
+                          ", " +
+                          this.state.currentProfile.country}
+                        {this.state.currentProfile.city == null &&
+                          this.state.currentProfile.country == null && (
+                            <p style={{ color: "gray" }}>Not provided</p>
+                          )}
                       </div>
                       {/* Handle NULL values, upload photo */}
 
-                      <div className="col-sm-6 nameOfAbout">
-                        Profession
-                      </div>
+                      <div className="col-sm-6 nameOfAbout">Profession</div>
                       <div className="col-sm-6 detailOfAbout">
-                        {this.state.currentProfile.profession!=null && (<i class="fa-solid fa-briefcase" style={{marginRight: '8px'}}></i>)}
-                        {this.state.currentProfile.profession!=null && (this.state.currentProfile.profession)}
-                        {this.state.currentProfile.profession==null && <p style={{ color: "gray" }}>Not provided</p>}
+                        {this.state.currentProfile.profession != null && (
+                          <i
+                            className="fa-solid fa-briefcase"
+                            style={{ marginRight: "8px" }}
+                          ></i>
+                        )}
+                        {this.state.currentProfile.profession != null &&
+                          this.state.currentProfile.profession}
+                        {this.state.currentProfile.profession == null && (
+                          <p style={{ color: "gray" }}>Not provided</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="edit-button-area">
+                  <button type="button" className="btn btn-dark" data-toggle="modal" data-target=".bd-example-modal-lg">
+                    Edit details
+                  </button>
+
+                  <div className="modal fade bd-example-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div className="modal-dialog modal-lg">
+
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div className="edit-form">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem ex sequi veritatis repellendus quis
+                            laborum explicabo nemo ut rerum. In ducimus, ad est blanditiis facere ut vero dolorem fugit ipsum.
+                          </p>
+                        </div>
+                        <div className="modal-footer">
+                          <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" className="btn btn-success">Save changes</button>
+                        </div>
                       </div>
                     </div>
                   </div>
