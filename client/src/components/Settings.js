@@ -23,35 +23,35 @@ export default class Settings extends Component {
 
   saveProfileImage = (imageUrl) => {
     axios
-     .post("http://localhost:3001/settings/saveImage", {
-      imageUrl: imageUrl,
-      accessToken: sessionStorage.getItem("accessToken")
-     }).then((response) => {
-      if(response.data.error) {
-        this.setState({loading: false})
-        swal({
-          title: "Error!",
-          text: "Please check your connection or try after sometime!",
-          icon: "error",
-          timer: 8000,
-          button: false,
-        });
-      } else {
-        swal({
-          title: "Updated successfully!",
-          text: "Please refresh to see changes!",
-          icon: "success",
-          timer: 8000,
-          button: false,
-        });
-        this.setState({loading: false})
-      }
-     })
+      .post("http://localhost:3001/settings/saveImage", {
+        imageUrl: imageUrl,
+        accessToken: sessionStorage.getItem("accessToken")
+      }).then((response) => {
+        if (response.data.error) {
+          this.setState({ loading: false })
+          swal({
+            title: "Error!",
+            text: "Please check your connection or try after sometime!",
+            icon: "error",
+            timer: 8000,
+            button: false,
+          });
+        } else {
+          swal({
+            title: "Updated successfully!",
+            text: "Please refresh to see changes!",
+            icon: "success",
+            timer: 8000,
+            button: false,
+          });
+          this.setState({ loading: false })
+        }
+      })
   }
 
   uploadImage = () => {
     if (this.state.newUploaded) {
-      this.setState({loading: true})
+      this.setState({ loading: true })
       const formData = new FormData();
       formData.append("file", this.state.imageSelected);
       formData.append("upload_preset", "d2u9oczt");
@@ -61,6 +61,15 @@ export default class Settings extends Component {
         .then((response) => {
           this.saveProfileImage(response.data.secure_url)
         });
+    }
+    else{
+      swal({
+        title: "Nothing to update!",
+        text: "Seems like you haven't added any new picture!",
+        icon: "warning",
+        timer: 5000,
+        button: false,
+      });
     }
   };
 
@@ -96,6 +105,100 @@ export default class Settings extends Component {
         }
       });
   }
+
+  initialValues = {
+    username: "",
+    name: "",
+    phoneno: "",
+    email: "",
+    profession: "",
+    city: "",
+    state: "",
+    country: "",
+    zipcode: "",
+    about: "",
+    skills: "",
+    password: ""
+  }
+
+
+  validationSchema = Yup.object().shape({
+    username: Yup.string(),
+    name: Yup.string(),
+    email: Yup.string().email(),
+    phoneno: Yup.string()
+      .matches(
+        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+        "Phone number is not valid"
+      ),
+      profession: Yup.string(),
+      city: Yup.string(),
+      state: Yup.string(),
+      country: Yup.string(),
+      zipcode: Yup.string(),
+      about: Yup.string(),
+      skills: Yup.string(),
+      password: Yup.string(),
+  })
+
+  onSubmit = (data) => { 
+    if(data.username.length<3 || data.username.length>40) data.username = this.state.currentProfile.username
+    if(data.name=="") data.name = this.state.currentProfile.name
+    if(data.phoneno=="") data.phoneno = this.state.currentProfile.phone
+    if(data.email=="") data.email = this.state.currentProfile.email
+    if(data.profession=="") data.profession = this.state.currentProfile.profession
+    if(data.city=="") data.city = this.state.currentProfile.city
+    if(data.state=="") data.state = this.state.currentProfile.state
+    if(data.country=="") data.country = this.state.currentProfile.country
+    if(data.zipcode=="") data.zipcode = this.state.currentProfile.zip_code
+    if(data.about=="") data.about = this.state.currentProfile.about
+    if(data.skills=="") data.skills = this.state.currentProfile.skills
+    if(data.password.length<5) data.password = "No change"
+    console.log(data);
+
+    this.setState({loading: true})
+    axios
+      .post("http://localhost:3001/settings/updateProfile", {
+        data: data,
+        accessToken: sessionStorage.getItem("accessToken")
+      })
+      .then((response) => {
+        if (response.data.error) {
+          this.setState({
+            loading: false,
+          });
+          swal({
+            title: response.data.error,
+            text: "Check your internet connection or try after sometime.",
+            icon: "error",
+            timer: 5000,
+            button: false,
+          });
+        } else {
+          this.setState({
+            loading: false,
+          });
+          if(response.data.exists){
+            swal({
+              title: "Sorry!",
+              text: response.data.exists,
+              icon: "warning",
+              timer: 5000,
+              button: false,
+            });
+          }
+          else{
+            swal({
+              title: "Success!",
+              text: "You will be directed to login page.",
+              icon: "success",
+              timer: 5000,
+              button: false,
+            });
+          }
+        }
+      });
+  };
 
   render() {
     return (
@@ -168,7 +271,7 @@ export default class Settings extends Component {
                       return (
                         <p
                           style={{
-                            overflowY: "hidden",
+                            overflowWrap: "break-word",
                             fontWeight: "",
                             fontSize: "18px",
                           }}
@@ -284,19 +387,123 @@ export default class Settings extends Component {
 
                       <div className="modal-content">
                         <div className="modal-header">
-                          <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                          <h5 className="modal-title" id="exampleModalLongTitle">Edit your profile here</h5>
                           <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                           </button>
                         </div>
+                        <div className="info-formedit" style={{fontStyle: 'italic', padding: '0 2em'}}>
+                          <p style={{fontWeight: 'bold'}}>Please take care of the following to apply changes to the profile</p>
+                          <ul>
+                            <li>User name must be <strong>greater than 2</strong> and <strong>less than 41</strong> in length.</li>
+                            <li>Password must be <strong>more that 4</strong> characters in length.</li>
+                          </ul>
+                        </div>
                         <div className="edit-form">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem ex sequi veritatis repellendus quis
-                            laborum explicabo nemo ut rerum. In ducimus, ad est blanditiis facere ut vero dolorem fugit ipsum.
-                          </p>
+
+                        <Formik
+                        initialValues={this.initialValues}
+                        onSubmit={this.onSubmit}
+                        validationSchema={this.validationSchema}
+                        >
+                    <Form className='formContainer'>
+                    <Field
+                            className='lr-input'
+                            name="username"
+                            placeholder={'Username: ' + this.state.currentProfile.username}
+                            autocomplete="off"
+                        />
+                        <ErrorMessage name="username" component="span" />
+
+                        <Field
+                            className='lr-input'
+                            name="name"
+                            placeholder={'Name: ' + this.state.currentProfile.name}
+                        />
+                        <ErrorMessage name="name" component="span" />
+
+                        <Field
+                            className='lr-input'
+                            name="phoneno"
+                            placeholder={'Phone No: ' + this.state.currentProfile.phone}
+                        />
+                        <ErrorMessage name="phoneno" component="span" />
+
+                        <Field
+                            className='lr-input'
+                            name="email"
+                            placeholder={'Email: ' + this.state.currentProfile.email}
+                        />
+                        <ErrorMessage name="email" component="span" />
+
+                        <Field
+                            className='lr-input'
+                            name="profession"
+                            placeholder={'Profession: ' + (this.state.currentProfile.profession==null?"":this.state.currentProfile.profession)}
+                        />
+                        <ErrorMessage name="profession" component="span" />
+
+                        <Field
+                            className='lr-input'
+                            name="city"
+                            placeholder={'City: ' + (this.state.currentProfile.city==null?"":this.state.currentProfile.city)}
+                        />
+                        <ErrorMessage name="city" component="span" />
+
+                        <Field
+                            className='lr-input'
+                            name="state"
+                            placeholder={'State: ' + (this.state.currentProfile.state==null?"":this.state.currentProfile.state)}
+                        />
+                        <ErrorMessage name="state" component="span" />
+
+                        <Field
+                            className='lr-input'
+                            name="country"
+                            placeholder={'Country: ' + (this.state.currentProfile.country==null?"":this.state.currentProfile.country)}
+                        />
+                        <ErrorMessage name="country" component="span" />
+
+                        <Field
+                            className='lr-input'
+                            name="zipcode"
+                            placeholder={'Zip Code: ' + (this.state.currentProfile.zip_code==null?"":this.state.currentProfile.zip_code)}
+                        />
+                        <ErrorMessage name="zipcode" component="span" />
+
+                        <Field
+                            as="textarea"
+                            className='lr-input'
+                            style={{height: '150px'}}
+                            name="about"
+                            placeholder={'About: ' + (this.state.currentProfile.about==null?"":this.state.currentProfile.about)}
+                        />
+                        <ErrorMessage name="about" component="span" />
+
+                        <Field
+                            className='lr-input'
+                            name="skills"
+                            placeholder={'Skills: ' + (this.state.currentProfile.skills==null?"":this.state.currentProfile.skills)}
+                        />
+                        <ErrorMessage name="skills" component="span" />
+
+                        <Field
+                        type='password'
+                            className='lr-input'
+                            name="password"
+                            placeholder="Password"
+                            autocomplete="off"
+                        />
+                        <ErrorMessage name="password" component="span" />
+
+                        
+                        <button type='submit' className="btn btn-success btn-lg btn-block">Save changes</button>
+                    </Form>
+                </Formik>
+
                         </div>
                         <div className="modal-footer">
-                          <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="button" className="btn btn-success">Save changes</button>
+                          <button type="button" id="close-modal" className="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                       </div>
                     </div>
