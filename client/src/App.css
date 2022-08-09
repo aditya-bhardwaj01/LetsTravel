@@ -370,3 +370,48 @@ input[type="file"] {
     margin-top: 1em;
   }
 }
+
+/* Profile page */
+.Profile{
+  background-color: #1F1F25;
+}
+
+.profile-section{
+  color: white;
+  min-height: 100vh;
+  border: solid white;
+  padding: 2em;
+}
+
+.profile-top-section{
+  padding: 0 6em;
+  border: solid blue;
+}
+.profile-top-left{
+  text-align: center;
+  border: solid red;
+}
+.user-image{
+  color: white;
+  margin: 0 1em;
+  border: solid black;
+}
+.username-button{
+  color: white;
+  margin: 0 1em;
+  border: solid white;
+}
+.profile-top-right{
+  border: solid green;
+}
+
+@media (max-width: 768px) {
+  .profile-section{
+    padding: 0.5em;
+  }
+  
+  .profile-top-section{
+    padding: 0 2em;
+    border: solid blue;
+  }
+}
