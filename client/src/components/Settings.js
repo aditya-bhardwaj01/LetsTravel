@@ -7,6 +7,7 @@ import profile from "../images/no-profile-pic.png";
 import { image } from "cloudinary-react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from 'react-router-dom';
 
 export default class Settings extends Component {
   constructor(props) {
@@ -142,6 +143,7 @@ export default class Settings extends Component {
   })
 
   onSubmit = (data) => { 
+    document.getElementById("close-modal").click()
     if(data.username.length<3 || data.username.length>40) data.username = this.state.currentProfile.username
     if(data.name=="") data.name = this.state.currentProfile.name
     if(data.phoneno=="") data.phoneno = this.state.currentProfile.phone
@@ -190,12 +192,15 @@ export default class Settings extends Component {
           else{
             swal({
               title: "Success!",
-              text: "You will be directed to login page.",
+              text: "Please login again to see the changes.",
               icon: "success",
               timer: 5000,
               button: false,
             });
           }
+          sessionStorage.removeItem('accessToken'); 
+          sessionStorage.clear(); 
+          this.props.navigate('/')
         }
       });
   };
@@ -517,3 +522,9 @@ export default class Settings extends Component {
     );
   }
 }
+
+export function NavigateSettings(props){
+  const navigate = useNavigate();
+  return (<Settings navigate={navigate}></Settings>)
+}
+

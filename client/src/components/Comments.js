@@ -90,7 +90,7 @@ export default class Comments extends Component {
                             <span style={{cursor: 'pointer'}} onClick={() => this.props.goToProfile(element.username)} id="profile-pic-comment">
                                 <img src={element.userimage == '' ? profile:element.userimage} alt="image" style={{ height: '35px', width: '35px', borderRadius: "20px" }} />
                             </span>
-                            <span style={{color: 'white', marginLeft: '8px'}}>
+                            <span onClick={() => this.props.goToProfile(element.username)} style={{color: 'white', marginLeft: '8px', cursor: 'pointer'}}>
                                 {element.username}
                             </span>
                             <br />

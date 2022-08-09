@@ -79,7 +79,7 @@ export default class Home extends Component {
                         <img src={element.userimage == null ? profile : element.userimage} 
                         alt="Profile Image" style={{ height: '35px', width: '35px', borderRadius: "20px", margin: "0 5px", cursor: 'pointer' }} />
                       </span>
-                      {element.username}
+                      <span onClick={() => this.goToProfile(element.username)} style={{color: 'white', cursor: 'pointer'}}>{element.username}</span>
                     </h5>
                     <hr></hr>
                     <h6 style={{ fontWeight: "bold" }} className="card-title">

@@ -6,7 +6,7 @@ import Login, {NavigateLogin} from "./components/Login";
 import Home, {NavigateProfileFromHome} from "./components/Home";
 import Contact from "./components/Contact";
 import Profile from "./components/Profile";
-import Settings from './components/Settings';
+import Settings, {NavigateSettings} from './components/Settings';
 
 export default class App extends Component {
   render() {
@@ -18,7 +18,7 @@ export default class App extends Component {
             <Route exact path="/register" element={<NavigateRegister />} />
             <Route exact path='/home' element={<NavigateProfileFromHome />} />
             <Route exact path='/contact' element={<Contact />} />
-            <Route exact path='/settings' element={<Settings />} />
+            <Route exact path='/settings' element={<NavigateSettings />} />
             <Route exact path='/profile/:username' element={<Profile />} />
           </Routes>
         </Router>
