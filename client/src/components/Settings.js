@@ -145,16 +145,16 @@ export default class Settings extends Component {
   onSubmit = (data) => { 
     document.getElementById("close-modal").click()
     if(data.username.length<3 || data.username.length>40) data.username = this.state.currentProfile.username
-    if(data.name=="") data.name = this.state.currentProfile.name
-    if(data.phoneno=="") data.phoneno = this.state.currentProfile.phone
-    if(data.email=="") data.email = this.state.currentProfile.email
-    if(data.profession=="") data.profession = this.state.currentProfile.profession
-    if(data.city=="") data.city = this.state.currentProfile.city
-    if(data.state=="") data.state = this.state.currentProfile.state
-    if(data.country=="") data.country = this.state.currentProfile.country
-    if(data.zipcode=="") data.zipcode = this.state.currentProfile.zip_code
-    if(data.about=="") data.about = this.state.currentProfile.about
-    if(data.skills=="") data.skills = this.state.currentProfile.skills
+    if(data.name==="") data.name = this.state.currentProfile.name
+    if(data.phoneno==="") data.phoneno = this.state.currentProfile.phone
+    if(data.email==="") data.email = this.state.currentProfile.email
+    if(data.profession==="") data.profession = this.state.currentProfile.profession
+    if(data.city==="") data.city = this.state.currentProfile.city
+    if(data.state==="") data.state = this.state.currentProfile.state
+    if(data.country==="") data.country = this.state.currentProfile.country
+    if(data.zipcode==="") data.zipcode = this.state.currentProfile.zip_code
+    if(data.about==="") data.about = this.state.currentProfile.about
+    if(data.skills==="") data.skills = this.state.currentProfile.skills
     if(data.password.length<5) data.password = "No change"
     console.log(data);
 

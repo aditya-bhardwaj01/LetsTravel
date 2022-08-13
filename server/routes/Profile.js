@@ -11,6 +11,13 @@ const db = mysql.createConnection({
     database: "lets_travel"
 })
 
+router.post('/currProfile', (req, res) => {
+    const accessToken = req.body.accessToken;
+    const validToken = verify(accessToken, "chalaaja");
+
+    res.json(validToken.username);
+})
+
 router.post('/', (req, res) => {
     const username = req.body.username
 

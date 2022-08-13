@@ -5,7 +5,7 @@ import Register, {NavigateRegister} from "./components/Register";
 import Login, {NavigateLogin} from "./components/Login";
 import Home, {NavigateProfileFromHome} from "./components/Home";
 import Contact from "./components/Contact";
-import Profile from "./components/Profile";
+import Profile, {NavigateProfile} from "./components/Profile";
 import Settings, {NavigateSettings} from './components/Settings';
 
 export default class App extends Component {
@@ -19,7 +19,7 @@ export default class App extends Component {
             <Route exact path='/home' element={<NavigateProfileFromHome />} />
             <Route exact path='/contact' element={<Contact />} />
             <Route exact path='/settings' element={<NavigateSettings />} />
-            <Route exact path='/profile/:username' element={<Profile />} />
+            <Route exact path='/profile/:username' element={<NavigateProfile />} />
           </Routes>
         </Router>
       </div>

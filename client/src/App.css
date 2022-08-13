@@ -379,39 +379,66 @@ input[type="file"] {
 .profile-section{
   color: white;
   min-height: 100vh;
-  border: solid white;
+  /* border: solid white; */
   padding: 2em;
+  margin-top: 10px;
 }
 
 .profile-top-section{
-  padding: 0 6em;
-  border: solid blue;
+  padding: 0 4em;
+  /* border: solid blue; */
 }
 .profile-top-left{
-  text-align: center;
-  border: solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: solid red; */
 }
-.user-image{
-  color: white;
-  margin: 0 1em;
-  border: solid black;
+.profile-top-left img{
+  height: 180px;
+  width: 180px;
+  border-radius: 100px;
 }
-.username-button{
-  color: white;
-  margin: 0 1em;
-  border: solid white;
-}
+
 .profile-top-right{
-  border: solid green;
+  /* border: solid green; */
+  font-size: 24px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+.profile-top-right span{
+  color: white;
+  margin: 0 1em 0 0;
+}
+.name-right{
+  font-weight: bold;
+}
+.about-right{
+  font-size: 14px;
+}
+
+.profile-bottom-section{
+  border: solid white;
+  margin: 2em 4em;
 }
 
 @media (max-width: 768px) {
   .profile-section{
     padding: 0.5em;
   }
-  
+
   .profile-top-section{
-    padding: 0 2em;
-    border: solid blue;
+    padding: 0 1em;
+    /* border: solid blue; */
+  }
+
+  .profile-top-left img{
+    height: 140px;
+    width: 140px;
+    border-radius: 70px;
+  }
+
+  .profile-top-right{
+    margin-top: 1em;
+    font-size: 18px;
   }
 }

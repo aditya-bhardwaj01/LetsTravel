@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
   const validToken = verify(accessToken, "chalaaja");
 
   db.query(
-    "SELECT * FROM post WHERE userid <> ?", [validToken.id],
+    "SELECT * FROM post WHERE userid <> ? order by date desc", [validToken.id],
     (err, result) => {
       if (err) {
         res.json({ error: "Unable to load comments" });
@@ -32,7 +32,7 @@ router.post("/comments", async (req, res) => {
   const postId = req.body.postId;
 
   db.query(
-    "SELECT * FROM comment WHERE postid = ?", [postId],
+    "SELECT * FROM comment WHERE postid = ? order by date desc", [postId],
     (err, result) => {
       if (err) {
         res.json({ error: "Database error" });
@@ -85,7 +85,7 @@ router.post("/comments/post", async (req, res) => {
 
   const sendComments = async () => {
     return new Promise((resolve, reject) => {
-      db.query("SELECT * FROM comment WHERE postid = ?", [postId], function(error, result) {
+      db.query("SELECT * FROM comment WHERE postid = ? order by date desc", [postId], function(error, result) {
         console.log("sendComments")
         if(error) {
           console.log(error);
