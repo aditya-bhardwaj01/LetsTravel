@@ -31,6 +31,15 @@ export default class Login extends Component {
         })
     }
 
+    clickButton = (e) => {
+        var key = e.which;
+        if(key === 13)  
+        {
+            document.getElementById("loginToHome").click();
+            return false;  
+        }
+    }
+
     render() {
         return (
             <div className='Login'>
@@ -38,11 +47,11 @@ export default class Login extends Component {
                     <img src={travel} alt="LetsTravel" />
                 </div>
 
-                <input className='lr-input' id="login-username" name="username" type="text" required="required" placeholder="Username" />
-                <input className='lr-input' id="login-password" name="password" type="password" required="required" placeholder="Password" />
+                <input className='lr-input' id="login-username" name="username" type="text" required="required" placeholder="Username" onKeyDown={(event) => this.clickButton(event)} />
+                <input className='lr-input' id="login-password" name="password" type="password" required="required" placeholder="Password" onKeyDown={(event) => this.clickButton(event)} />
 
                 <div className="loginpage-buttons">
-                    <button type="button" className="btn btn-primary btn-lg btn-block" onClick={this.authenticateUser}>
+                    <button id='loginToHome' type="button" className="btn btn-primary btn-lg btn-block" onClick={this.authenticateUser}>
                         Login
                     </button>
                     <h4 className="hr-lines"> OR </h4>

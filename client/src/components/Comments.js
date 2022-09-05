@@ -54,6 +54,15 @@ export default class Comments extends Component {
         }
     }
 
+    clickButton = (e) => {
+        var key = e.which;
+        if(key === 13)  
+        {
+            document.getElementById("postComment").click();
+            return false;  
+        }
+    }
+
     componentDidMount() {
         axios.post("http://localhost:3001/home/comments",
             {
@@ -100,8 +109,8 @@ export default class Comments extends Component {
                         </li>
                     })}
                     <li className="comment-section list-group-item">
-                        <input style={{padding: '0 8px'}} id={'new-comment'+this.props.postId} className='add-comment' type="text" placeholder='Add  comment...' />
-                        <span onClick={this.addComment} style={{ marginLeft: '5px', fontSize: '18px', cursor: 'pointer', color: '#0999F6' }}>
+                        <input style={{padding: '0 8px'}} id={'new-comment'+this.props.postId} className='add-comment' type="text" placeholder='Add  comment...' onKeyDown={(event) => this.clickButton(event)} />
+                        <span id='postComment' onClick={this.addComment} style={{ marginLeft: '5px', fontSize: '18px', cursor: 'pointer', color: '#0999F6' }}>
                             Post
                         </span>
                     </li>

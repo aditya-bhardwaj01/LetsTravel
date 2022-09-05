@@ -26,6 +26,7 @@ app.use("/settings", settingsRouter)
 const profileRouter = require("./routes/Profile");
 app.use("/profile", profileRouter);
 
+
 app.listen(3001, ()=>{
     console.log("Server listening on port 3001");
 })

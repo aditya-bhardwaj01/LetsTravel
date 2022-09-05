@@ -43,7 +43,7 @@ const fetchPosts = (res, profilepage, username) => {
 }
 
 const deletePost = (res, postId) => {
-    return new Promise((response, reject) => {
+    return new Promise((resolve, reject) => {
         db.query("delete from post where id=?", [postId],
         (err, result) => {
             if(err){
@@ -57,11 +57,16 @@ const deletePost = (res, postId) => {
 }
 
 router.post('/deletePost', (req, res) => {
-    const postId = req.body.postId
+    const postId = req.body.postId;
+    const accessToken = req.body.accessToken;
+    const validToken = verify(accessToken, "chalaaja");
+    const username = validToken.username
 
     const execute = async () => {
-        profilepage = {}
-        //await deletePost(res, postId);
+        posts = {}
+        await deletePost(res, postId);
+        await fetchPosts(res, posts, username)
+        res.json(posts);
     }
 
     execute()
