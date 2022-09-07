@@ -219,7 +219,7 @@ export default class Settings extends Component {
                   <div className="image-display">
                     <img
                       src={
-                        this.state.profilePicture == ""
+                        this.state.profilePicture === ""
                           ? profile
                           : this.state.profilePicture
                       }

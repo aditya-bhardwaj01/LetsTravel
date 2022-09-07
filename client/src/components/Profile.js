@@ -185,11 +185,11 @@ export default class Profile extends Component {
 
             <hr style={{ backgroundColor: "gray" }}></hr>
 
-            <div className="profile-bottom-section" style={{padding: 0}}>
-              {this.state.ownProfile && 
-              <AddPost updatePost={this.updatePost}/>
+            <div className="profile-bottom-section" style={{ padding: 0 }}>
+              {this.state.ownProfile &&
+                <AddPost updatePost={this.updatePost} />
               }
-            
+
               {this.state.posts.length <= 0 ? (
                 <p style={{ textAlign: "center", color: "gray" }}>
                   No posts yet
