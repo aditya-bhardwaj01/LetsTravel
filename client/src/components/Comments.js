@@ -58,7 +58,7 @@ export default class Comments extends Component {
         var key = e.which;
         if(key === 13)  
         {
-            document.getElementById("postComment").click();
+            document.getElementById("postComment"+this.props.postId).click();
             return false;  
         }
     }
@@ -95,22 +95,24 @@ export default class Comments extends Component {
                 <ul style={{ display: 'none' }} id={this.props.postId} className="list-group list-group-flush">
                     {this.state.comments.length==0 ? 
                     <p style={{color: '#768080', textAlign: 'center'}}>No comments yet</p> : this.state.comments.map((element) => {
-                        return <li className="comment-section list-group-item">
+                        return <li className="comment-section list-group-item" 
+                        style={{backgroundColor: this.props.backgroundcolor, color: this.props.textColor}} >
                             <span style={{cursor: 'pointer'}} onClick={() => this.props.goToProfile(element.username)} id="profile-pic-comment">
                                 <img src={element.userimage == '' ? profile:element.userimage} alt="image" style={{ height: '35px', width: '35px', borderRadius: "20px" }} />
                             </span>
-                            <span onClick={() => this.props.goToProfile(element.username)} style={{color: 'white', marginLeft: '8px', cursor: 'pointer'}}>
+                            <span onClick={() => this.props.goToProfile(element.username)} style={{color: this.props.textColor, marginLeft: '8px', cursor: 'pointer'}}>
                                 {element.username}
                             </span>
                             <br />
-                            <span id="comment" style={{color: 'white'}}>{element.comment_text}</span>
+                            <span id="comment" style={{color: this.props.textColor}}>{element.comment_text}</span>
                             <br />
                             <span style={{color: 'grey'}} id="comment-time">{this.props.getTime(element.date)}</span>
                         </li>
                     })}
-                    <li className="comment-section list-group-item">
+                    <li className="comment-section list-group-item"
+                    style={{backgroundColor: this.props.backgroundcolor, color: this.props.textColor}}>
                         <input style={{padding: '0 8px'}} id={'new-comment'+this.props.postId} className='add-comment' type="text" placeholder='Add  comment...' onKeyDown={(event) => this.clickButton(event)} />
-                        <span id='postComment' onClick={this.addComment} style={{ marginLeft: '5px', fontSize: '18px', cursor: 'pointer', color: '#0999F6' }}>
+                        <span id={'postComment'+this.props.postId} onClick={this.addComment} style={{ marginLeft: '5px', fontSize: '18px', cursor: 'pointer', color: '#0999F6' }}>
                             Post
                         </span>
                     </li>
@@ -122,5 +124,5 @@ export default class Comments extends Component {
 
 export function NavigateProfileFromComment(props){
     const navigate = useNavigate();
-    return (<Comments goToProfile = {props.goToProfile} postId = {props.postId} getTime = {props.getTime} navigate={navigate}></Comments>)
+    return (<Comments backgroundcolor={props.backgroundcolor} textColor={props.textColor}  goToProfile = {props.goToProfile} postId = {props.postId} getTime = {props.getTime} navigate={navigate}></Comments>)
 }

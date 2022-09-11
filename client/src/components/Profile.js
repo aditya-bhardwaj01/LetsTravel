@@ -7,6 +7,7 @@ import profile from "../images/no-profile-pic.png";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import AddPost from "./AddPost";
+import Comments, {NavigateProfileFromComment} from './Comments';
 
 export default class Profile extends Component {
   constructor(props) {
@@ -18,6 +19,14 @@ export default class Profile extends Component {
       posts: [],
       loading: false,
     };
+  }
+
+  loadingTrue = () => {
+    this.setState({ loading: true })
+  }
+
+  loadingFalse = () => {
+    this.setState({ loading: false })
   }
 
   getTime = (time) => {
@@ -148,7 +157,7 @@ export default class Profile extends Component {
                     style={{ cursor: "pointer" }}
                     className="img-fluid"
                     src={
-                      this.state.profile.profile_pic == ""
+                      this.state.profile.profile_pic === ""
                         ? profile
                         : this.state.profile.profile_pic
                     }
@@ -187,7 +196,7 @@ export default class Profile extends Component {
 
             <div className="profile-bottom-section" style={{ padding: 0 }}>
               {this.state.ownProfile &&
-                <AddPost updatePost={this.updatePost} />
+                <AddPost updatePost={this.updatePost} loadingTrue={this.loadingTrue} loadingFalse={this.loadingFalse} />
               }
 
               {this.state.posts.length <= 0 ? (
@@ -198,7 +207,7 @@ export default class Profile extends Component {
                 <div className="row">
                   {this.state.posts.map((element) => {
                     return (
-                      <div className="col-md-4 single-post">
+                      <div className="col-lg-4 single-post">
                         <div className="card post-card-profile">
                           <h5>
                             <span>
@@ -324,6 +333,9 @@ export default class Profile extends Component {
                                     <p className="post-text-modal">
                                       {element.post_text}
                                     </p>
+                                    
+                                    <NavigateProfileFromComment postId={element.id} getTime={this.getTime} textColor={"black"} backgroundcolor={"white"} />
+                                    {/* goToProfile={this.goToProfile} /> */}
                                   </div>
                                   <div className="modal-footer">
                                     <button

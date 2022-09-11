@@ -14,22 +14,47 @@ export default class AddPost extends Component {
     }
   }
 
+  savePostData = async (imageUrl, formData) => {
+    axios
+      .post("http://localhost:3001/profile/addPost", {
+        imageUrl: imageUrl,
+        formData: formData,
+        accessToken: sessionStorage.getItem("accessToken")
+      }).then((response) => {
+        //this.props.loadingFalse()
+      })
+  }
+
+  uploadImage = async (data) => {
+    const formData = new FormData();
+    formData.append("file", this.state.postImageSelected);
+    formData.append("upload_preset", "d2u9oczt");
+
+    axios
+      .post("https://api.cloudinary.com/v1_1/dbcpdiy45/image/upload", formData)
+      .then((response) => {
+        this.savePostData(response.data.secure_url, data);
+      });
+  };
+
   initialValues = {
-    postImage: "",
     posttitle: "",
     posttext: "",
     postlocation: ""
   }
 
   validationSchema = Yup.object().shape({
-    //postImage: Yup.mixed().required("A file is required"),
+    //postImage: Yup.mixed().required("Please upload a picture"),
     posttitle: Yup.string().required("Required field"),
     posttext: Yup.string().required("Required field"),
     postlocation: Yup.string().required("Required field")
   })
 
-  onSubmit = (data) => {
-    console.log(123)
+  onSubmit = async (data) => {
+    this.props.loadingTrue()
+    this.uploadImage(data);
+    document.getElementById("closeAddPost").click();
+    this.props.loadingFalse()
   }
 
   render() {
@@ -89,7 +114,7 @@ export default class AddPost extends Component {
                           />
                         </div>
                         <div className="post-image-input" style={{marginTop: "10px"}}>
-                          <Field
+                          <input
                             name="postImage"
                             id="postImage"
                             accept="image/*"
@@ -100,7 +125,7 @@ export default class AddPost extends Component {
                                 postImageSelected: event.target.files[0],
                                 postImage: URL.createObjectURL(file)
                               });
-                            }}
+                            }} 
                             required
                           />
                           <p>
@@ -149,6 +174,7 @@ export default class AddPost extends Component {
                 </div>
                 <div className="modal-footer">
                   <button
+                    id="closeAddPost"
                     type="button"
                     className="btn btn-secondary"
                     data-dismiss="modal"

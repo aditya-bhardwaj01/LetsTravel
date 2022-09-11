@@ -1,4 +1,4 @@
-db.leads.insertMany([
+/*db.leads.insertMany([
     {"name": "From Channel", "state": "Tamil Nadu"}, 
     {"name": "From Mumbai", "state": "Maharashtra"}
 ])
@@ -10,7 +10,7 @@ db.leads.updateMany(
             "isActive": false
         }
     }
-)
+)*/
 
 //Queries
 //Eq
@@ -35,3 +35,23 @@ db.leads.updateMany(
 // click/delete/remove/edit -> 
 // db.leads.find({}, {"city":1, "_id": 0})
 // db.leads.find({"Tax": {$lte: "30"}}, {"Tax":1, "_id": 0})
+
+// db.leads.findOne() - find the first document
+// db.leads.findOneAndReplace({"name":"hbdc"}, {"mobile": "2234", "address": 
+// "kewugfg"})
+// db.leads.findOneAndDelete({"mobile": "2338383"})
+
+// db.orders.deleteOne({"_id": ObjectId("______")});
+// db.orders.deleteMany({"isActive": false})
+
+/*var pipeline = [
+    { $group : {"_id": "city"}},
+    {$sort: {"leadName": 1}},
+    { $limit: 3 }
+];
+db.leads.aggregate(pipeline)*/
+
+// db.leads.find().limit(2);
+// db.leads.find().skip(1);
+
+// db.leads.find().sort({"leadName": 1});

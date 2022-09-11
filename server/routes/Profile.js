@@ -4,6 +4,7 @@ const mysql = require("mysql2");
 
 const { verify } = require("jsonwebtoken");
 const { response } = require('express');
+/*const { default: AddPost } = require('../../client/src/components/AddPost');*/
 
 const db = mysql.createConnection({
     user: "root",
@@ -56,28 +57,49 @@ const deletePost = (res, postId) => {
     })
 }
 
-router.post('/deletePost', (req, res) => {
-    const postId = req.body.postId;
-    const accessToken = req.body.accessToken;
-    const validToken = verify(accessToken, "chalaaja");
-    const username = validToken.username
+const deleteComment = (res, postId) => {
+    return new Promise((resolve, reject) => {
+        db.query("delete from comment where postid=?", [postId],
+        (err, result) => {
+            if(err){
+                res.json({error: "Check your connection or try after sometime."})
+            }
+            else{
+                resolve("SUCCESS");
+            }
+        })
+    })
+}
 
-    const execute = async () => {
-        posts = {}
-        await deletePost(res, postId);
-        await fetchPosts(res, posts, username)
-        res.json(posts);
-    }
+const addPost = (res, imageUrl, formData, validToken, profilepic) => {
+    return new Promise((resolve, reject) => {
+        db.query("insert into post (post_text, post_images, username, userid, post_title, location, userimage) values (?, ?, ?, ?, ?, ?, ?)", 
+        [formData.posttext, imageUrl, validToken.username, validToken.id, formData.posttitle, formData.location, profilepic.userimage],
+        (err, result) => {
+            if(err){
+                res.json({error: "Check your connection or try after sometime."})
+            }
+            else{
+                resolve("SUCCESS");
+            }
+        })
+    })
+}
 
-    execute()
-})
-
-router.post('/currProfile', (req, res) => {
-    const accessToken = req.body.accessToken;
-    const validToken = verify(accessToken, "chalaaja");
-
-    res.json(validToken.username);
-})
+const getUserImage = (res, validToken, profilepic) => {
+    return new Promise((resolve, reject) => {
+        db.query("select profile_pic from user where id = ?", [validToken.id],
+        (err, result) => {
+            if(err){
+                res.json({error: "Check your connection or try after sometime."})
+            }
+            else{
+                profilepic.userimage = result[0].profile_pic;
+                resolve("SUCCESS");
+            }
+        })
+    })
+}
 
 router.post('/', (req, res) => {
     const username = req.body.username
@@ -91,5 +113,49 @@ router.post('/', (req, res) => {
 
     execute();
 })
+
+router.post('/currProfile', (req, res) => {
+    const accessToken = req.body.accessToken;
+    const validToken = verify(accessToken, "chalaaja");
+
+    res.json(validToken.username);
+})
+
+router.post('/deletePost', (req, res) => {
+    const postId = req.body.postId;
+    const accessToken = req.body.accessToken;
+    const validToken = verify(accessToken, "chalaaja");
+    const username = validToken.username
+
+    const execute = async () => {
+        posts = {}
+        await deletePost(res, postId);
+        await deleteComment(res, postId);
+        await fetchPosts(res, posts, username)
+        res.json(posts);
+    }
+
+    execute()
+})
+
+router.post('/addPost', (req, res) => {
+    //console.log(req.body)
+    const imageUrl = req.body.imageUrl;
+    const formData = req.body.formData;
+    profilepic = {userimage: ""};
+    const accessToken = req.body.accessToken;
+    const validToken = verify(accessToken, "chalaaja");
+
+    const execute = async () => {
+        posts = {}
+        await getUserImage(res, validToken, profilepic)
+        await addPost(res, imageUrl, formData, validToken, profilepic)
+        await fetchPosts(res, posts, validToken.username)
+        res.json(posts);
+    }
+
+    execute()
+})
+
 
 module.exports = router;
