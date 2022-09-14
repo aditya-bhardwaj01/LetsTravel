@@ -92,7 +92,7 @@ export default class Home extends Component {
                   </div>
                   <img className="card-img-top" src={element.post_images} alt="Card image cap" />
                   <div className="card-body">
-                    <NavigateProfileFromComment textColor={"white"} backgroundcolor={"#313237"} postId={element.id} getTime={this.getTime} goToProfile={this.goToProfile} />
+                    <NavigateProfileFromComment textColor={"white"} backgroundcolor={"#313237"} postId={element.id} getTime={this.getTime} goToProfile={this.goToProfile} ownProfile={false} />
                   </div>
                   <i className='post-date' style={{ color: 'grey' }}>
                     {this.getTime(element.date)}

@@ -103,8 +103,10 @@ export default class Profile extends Component {
     });
   };
 
-  updatePost = () => {
-
+  updatePost = (data) => {
+    this.setState({
+      posts: data
+    });
   }
 
   async componentDidMount() {
@@ -334,7 +336,7 @@ export default class Profile extends Component {
                                       {element.post_text}
                                     </p>
                                     
-                                    <NavigateProfileFromComment postId={element.id} getTime={this.getTime} textColor={"black"} backgroundcolor={"white"} />
+                                    <NavigateProfileFromComment postId={element.id} getTime={this.getTime} textColor={"black"} backgroundcolor={"white"} ownProfile={true} />
                                     {/* goToProfile={this.goToProfile} /> */}
                                   </div>
                                   <div className="modal-footer">

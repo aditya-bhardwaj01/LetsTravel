@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import swal from "sweetalert";
 import { image } from "cloudinary-react";
 import axios, { AxiosError } from "axios";
 import dropimage from "../images/drop-image.jpg";
@@ -21,7 +22,7 @@ export default class AddPost extends Component {
         formData: formData,
         accessToken: sessionStorage.getItem("accessToken")
       }).then((response) => {
-        //this.props.loadingFalse()
+        this.props.updatePost(response.data.posts)
       })
   }
 
@@ -33,6 +34,7 @@ export default class AddPost extends Component {
     axios
       .post("https://api.cloudinary.com/v1_1/dbcpdiy45/image/upload", formData)
       .then((response) => {
+        console.log(response.data.secure_url)
         this.savePostData(response.data.secure_url, data);
       });
   };
@@ -94,6 +96,7 @@ export default class AddPost extends Component {
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
+                
                 <div className="modal-body">
 
                   <Formik
@@ -112,6 +115,9 @@ export default class AddPost extends Component {
                             height="200"
                             className="img-fluid"
                           />
+                          <p style={{fontSize: '14px', color: 'black', padding: '1em', fontStyle: 'italic', color: 'red'}}>
+                  If the size of your picture is high then the post will not be created.
+                </p>
                         </div>
                         <div className="post-image-input" style={{marginTop: "10px"}}>
                           <input
