@@ -44,7 +44,6 @@ router.post("/comments", async (req, res) => {
 });
 
 router.post("/comments/post", async (req, res) => {
-  console.log(req.body);
   const postId = req.body.postId;
   const commentText = req.body.commentText;
   const accessToken = req.body.accessToken;
@@ -107,5 +106,43 @@ router.post("/comments/post", async (req, res) => {
   
   execute();
 });
+
+router.post("/comments/delete", async(req, res) => {
+  const commentId = req.body.commentId
+  const postId = req.body.postId
+
+  const deleteComment = async () => {
+    return new Promise((resolve, reject) => {
+      db.query("delete from comment where id=?", [commentId] , function (error, results) {
+        if(error){
+          res.json({error: "Could not delete! Please try after sometime."});
+        }
+        else{
+          resolve("SUCCESS");
+        }
+      });
+    });
+  };
+
+  const sendComments = async () => {
+    return new Promise((resolve, reject) => {
+      db.query("SELECT * FROM comment WHERE postid = ? order by date desc", [postId], function(error, result) {
+        if(error) {
+          res.json({error: "Sorry an error has occured!"});
+        }
+        else{
+          res.json(result);
+        }
+      })
+    })
+  }
+
+  const execute = async () => {
+    await deleteComment()
+    await sendComments()
+  }
+  
+  execute();
+})
 
 module.exports = router;

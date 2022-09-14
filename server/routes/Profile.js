@@ -72,9 +72,10 @@ const deleteComment = (res, postId) => {
 }
 
 const addPost = (res, imageUrl, formData, validToken, profilepic) => {
+    console.log(formData.posttext, imageUrl, validToken.username, validToken.id, formData.posttitle, formData.location, profilepic.userimage)
     return new Promise((resolve, reject) => {
         db.query("insert into post (post_text, post_images, username, userid, post_title, location, userimage) values (?, ?, ?, ?, ?, ?, ?)", 
-        [formData.posttext, imageUrl, validToken.username, validToken.id, formData.posttitle, formData.location, profilepic.userimage],
+        [formData.posttext, imageUrl, validToken.username, validToken.id, formData.posttitle, formData.postlocation, profilepic.userimage],
         (err, result) => {
             if(err){
                 res.json({error: "Check your connection or try after sometime."})
@@ -139,7 +140,6 @@ router.post('/deletePost', (req, res) => {
 })
 
 router.post('/addPost', (req, res) => {
-    //console.log(req.body)
     const imageUrl = req.body.imageUrl;
     const formData = req.body.formData;
     profilepic = {userimage: ""};
