@@ -55,3 +55,5 @@ db.leads.aggregate(pipeline)*/
 // db.leads.find().skip(1);
 
 // db.leads.find().sort({"leadName": 1});
+
+// db.leads.ensureIndex({"leadName": 1});
