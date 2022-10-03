@@ -4,6 +4,7 @@ import travel from "../images/travel-logo-circular.png";
 import profile from "../images/no-profile-pic.png";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 export default class Navbar extends Component {
     constructor(props) {
@@ -15,6 +16,23 @@ export default class Navbar extends Component {
         }
     }
 
+    initiateSearch = (event) => {
+        event.preventDefault()
+        var search = document.getElementById("search-text").value;
+        if (search != "") {
+            this.props.navigate("/searchResult/" + search)
+        }
+        else {
+            swal({
+                title: "Opps!",
+                text: "Search box is empty",
+                icon: "warning",
+                timer: 5000,
+                button: false,
+            });
+        }
+    }
+
     async componentDidMount() {
         var ul = document.getElementById("navbar-list");
         var items = ul.getElementsByTagName("li");
@@ -22,10 +40,11 @@ export default class Navbar extends Component {
             items[i].classList.remove('active');
         }
         document.getElementById("profile-navigation").classList.remove('profile-page-active');
-
-        document.getElementById(this.props.page).classList.add('active');
-        if (this.props.page == 'profile-page') {
-            document.getElementById("profile-navigation").classList.add('profile-page-active');
+        if (this.props.page != 'search') {
+            document.getElementById(this.props.page).classList.add('active');
+            if (this.props.page == 'profile-page') {
+                document.getElementById("profile-navigation").classList.add('profile-page-active');
+            }
         }
 
         axios.post("http://localhost:3001/navbar",
@@ -39,13 +58,13 @@ export default class Navbar extends Component {
                     })
                 }
                 else {
-                    if(response.data.link == ''){
+                    if (response.data.link == '') {
                         this.setState({
                             profilePic: profile,
                             username: response.data.username
                         })
                     }
-                    else{
+                    else {
                         this.setState({
                             profilePic: response.data.link,
                             username: response.data.username
@@ -78,19 +97,24 @@ export default class Navbar extends Component {
                                 <Link className="nav-link" aria-current="page" to="/settings">Settings</Link>
                             </li>
                             <li id='profile-page' className="nav-item">
-                                <Link className="nav-link" aria-current="page" to={'/profile/'+this.state.username}>
+                                <Link className="nav-link" aria-current="page" to={'/profile/' + this.state.username}>
                                     <img src={this.state.profilePic} alt="Profile Pic" id='profile-navigation'
                                         style={{ height: '35px', width: '35px', borderRadius: "20px" }} />
                                 </Link>
                             </li>
                         </ul>
                         <form className="form-inline my-2 my-lg-0">
-                            <input className="form-control mr-sm-2" type="search" placeholder="Search location" aria-label="Search" />
-                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            <input id='search-text' className="form-control mr-sm-2" type="search" placeholder="Search location" aria-label="Search" />
+                            <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={(event) => this.initiateSearch(event)}>Search</button>
                         </form>
                     </div>
                 </nav>
             </div>
         )
     }
+}
+
+export function NavigateNavbar(props) {
+    const navigate = useNavigate();
+    return <Navbar page={props.page} navigate={navigate}></Navbar>
 }

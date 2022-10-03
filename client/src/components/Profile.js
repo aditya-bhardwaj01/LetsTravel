@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Navbar from "./Navbar";
+import Navbar, {NavigateNavbar} from "./Navbar";
 import Spinner from "./Spinner";
 import axios, { AxiosError } from "axios";
 import swal from "sweetalert";
@@ -19,14 +19,6 @@ export default class Profile extends Component {
       posts: [],
       loading: false,
     };
-  }
-
-  loadingTrue = () => {
-    this.setState({ loading: true })
-  }
-
-  loadingFalse = () => {
-    this.setState({ loading: false })
   }
 
   getTime = (time) => {
@@ -104,9 +96,7 @@ export default class Profile extends Component {
   };
 
   updatePost = (data) => {
-    this.setState({
-      posts: data
-    });
+    window.location.reload()
   }
 
   async componentDidMount() {
@@ -147,7 +137,7 @@ export default class Profile extends Component {
   render() {
     return (
       <div className="Profile" >
-        <Navbar page={"profile-page"} />
+        <NavigateNavbar page={"profile-page"} />
         {this.state.loading ? (
           <Spinner />
         ) : (
@@ -198,7 +188,7 @@ export default class Profile extends Component {
 
             <div className="profile-bottom-section" style={{ padding: 0 }}>
               {this.state.ownProfile &&
-                <AddPost updatePost={this.updatePost} loadingTrue={this.loadingTrue} loadingFalse={this.loadingFalse} />
+                <AddPost updatePost={this.updatePost} />
               }
 
               {this.state.posts.length <= 0 ? (

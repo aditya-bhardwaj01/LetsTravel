@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Navbar from "./Navbar";
+import Navbar, {NavigateNavbar} from "./Navbar";
 import axios from "axios";
 import swal from 'sweetalert';
 import Comments, {NavigateProfileFromComment} from './Comments';
@@ -37,6 +37,7 @@ export default class Home extends Component {
           });
         }
         else {
+          console.log(typeof(response.data))
           this.setState({
             posts: response.data,
             loading: false
@@ -68,7 +69,7 @@ export default class Home extends Component {
       <div className='Home'>
         {
           this.state.loading ? <Spinner /> : ( <div>
-          <Navbar page={'home-page'} />
+          <NavigateNavbar page={'home-page'} />
           {this.state.posts.map((element) => {
             return (
               <div key={element.username} className="home-post">

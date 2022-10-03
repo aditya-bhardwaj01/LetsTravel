@@ -7,6 +7,7 @@ import Home, {NavigateProfileFromHome} from "./components/Home";
 import Contact from "./components/Contact";
 import Profile, {NavigateProfile} from "./components/Profile";
 import Settings, {NavigateSettings} from './components/Settings';
+import { NavigateSearchResult } from './components/SearchResult';
 
 export default class App extends Component {
   render() {
@@ -20,6 +21,7 @@ export default class App extends Component {
             <Route exact path='/contact' element={<Contact />} />
             <Route exact path='/settings' element={<NavigateSettings />} />
             <Route exact path='/profile/:username' element={<NavigateProfile />} />
+            <Route exact path='/searchResult/:location' element={<NavigateSearchResult />} />
           </Routes>
         </Router>
       </div>

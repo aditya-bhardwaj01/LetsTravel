@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Navbar from "./Navbar";
+import Navbar, {NavigateNavbar} from "./Navbar";
 import swal from "sweetalert";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -80,7 +80,7 @@ export default class Contact extends Component {
           <Spinner />
         ) : (
           <div>
-            <Navbar page={"contact-page"} />
+            <NavigateNavbar page={"contact-page"} />
             <h1 className="contact-heading">CONTACT US</h1>
             <p style={{ textAlign: "center" }}>
               <img src={contact} alt="contact" />

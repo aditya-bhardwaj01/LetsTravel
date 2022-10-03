@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Navbar from "./Navbar";
+import Navbar,{NavigateNavbar} from "./Navbar";
 import Spinner from "./Spinner";
 import axios, { AxiosError } from "axios";
 import swal from "sweetalert";
@@ -208,7 +208,7 @@ export default class Settings extends Component {
   render() {
     return (
       <div className="Settings">
-        <Navbar page={"settings-page"} />
+        <NavigateNavbar page={"settings-page"} />
         {this.state.loading ? (
           <Spinner />
         ) : (

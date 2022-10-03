@@ -22,6 +22,7 @@ export default class AddPost extends Component {
         formData: formData,
         accessToken: sessionStorage.getItem("accessToken")
       }).then((response) => {
+        console.log(response.data.posts)
         this.props.updatePost(response.data.posts)
       })
   }
@@ -34,7 +35,6 @@ export default class AddPost extends Component {
     axios
       .post("https://api.cloudinary.com/v1_1/dbcpdiy45/image/upload", formData)
       .then((response) => {
-        console.log(response.data.secure_url)
         this.savePostData(response.data.secure_url, data);
       });
   };
@@ -53,10 +53,9 @@ export default class AddPost extends Component {
   })
 
   onSubmit = async (data) => {
-    this.props.loadingTrue()
-    this.uploadImage(data);
-    document.getElementById("closeAddPost").click();
-    this.props.loadingFalse()
+    await this.uploadImage(data);
+    document.getElementById('closeAddPost').click();
+    //window.location.reload()
   }
 
   render() {
