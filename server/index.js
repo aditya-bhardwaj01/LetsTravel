@@ -26,6 +26,9 @@ app.use("/settings", settingsRouter)
 const profileRouter = require("./routes/Profile");
 app.use("/profile", profileRouter);
 
+const searchResult = require("./routes/SearchResult");
+app.use("/searchResult", searchResult);
+
 
 app.listen(3001, ()=>{
     console.log("Server listening on port 3001");

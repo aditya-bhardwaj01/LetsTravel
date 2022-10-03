@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
     "SELECT * FROM post WHERE userid <> ? order by date desc", [validToken.id],
     (err, result) => {
       if (err) {
-        res.json({ error: "Unable to load comments" });
+        res.json({ error: "Unable to load posts" });
       } else {
         res.json(result);
       }
