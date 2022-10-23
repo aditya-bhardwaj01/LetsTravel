@@ -205,7 +205,7 @@ export default class Profile extends Component {
                             <span>
                               <img
                                 src={
-                                  element.userimage == null
+                                  element.userimage == ""
                                     ? profile
                                     : element.userimage
                                 }

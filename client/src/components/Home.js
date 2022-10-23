@@ -37,7 +37,6 @@ export default class Home extends Component {
           });
         }
         else {
-          console.log(typeof(response.data))
           this.setState({
             posts: response.data,
             loading: false
@@ -77,7 +76,7 @@ export default class Home extends Component {
                   <div className="card-body">
                     <h5>
                       <span onClick={() => this.goToProfile(element.username)}>
-                        <img src={element.userimage == null ? profile : element.userimage} 
+                        <img src={element.userimage == "" ? profile : element.userimage} 
                         alt="Profile Image" style={{ height: '35px', width: '35px', borderRadius: "20px", margin: "0 5px", cursor: 'pointer' }} />
                       </span>
                       <span onClick={() => this.goToProfile(element.username)} style={{color: 'white', cursor: 'pointer'}}>{element.username}</span>

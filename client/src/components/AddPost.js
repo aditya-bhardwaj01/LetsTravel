@@ -10,8 +10,10 @@ export default class AddPost extends Component {
   constructor(props){
     super(props);
     this.state ={
+      imageSize: 0,
       postImage: "",
-      postImageSelected: ""
+      postImageSelected: "",
+      saving: false
     }
   }
 
@@ -22,7 +24,6 @@ export default class AddPost extends Component {
         formData: formData,
         accessToken: sessionStorage.getItem("accessToken")
       }).then((response) => {
-        console.log(response.data.posts)
         this.props.updatePost(response.data.posts)
       })
   }
@@ -53,7 +54,19 @@ export default class AddPost extends Component {
   })
 
   onSubmit = async (data) => {
-    await this.uploadImage(data);
+    if(this.state.imageSize > 10380902){
+      swal({
+        title: "Image too large",
+        text: "Image size should be less tha 10MB",
+        icon: "warning",
+        timer: 5000,
+        button: false,
+      });
+    }
+    else{
+      this.setState({saving: true})
+      await this.uploadImage(data);
+    }
     document.getElementById('closeAddPost').click();
     //window.location.reload()
   }
@@ -70,7 +83,9 @@ export default class AddPost extends Component {
           >
             Create post +
           </button>
-
+          <p style={{fontSize:'12px', textAlign: 'center', fontWeight: 'bold', display: this.state.saving ? 'block':'none'}}>
+            Please wait while your new post is being added 
+          </p>
           <div
             className="modal fade bd-example-modal-lg"
             id="addPost"
@@ -95,7 +110,7 @@ export default class AddPost extends Component {
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                
+
                 <div className="modal-body">
 
                   <Formik
@@ -114,9 +129,9 @@ export default class AddPost extends Component {
                             height="200"
                             className="img-fluid"
                           />
-                          <p style={{fontSize: '14px', color: 'black', padding: '1em', fontStyle: 'italic', color: 'red'}}>
-                  If the size of your picture is high then the post will not be created.
-                </p>
+                          <p style={{fontSize: '14px', padding: '1em', fontStyle: 'italic', color: 'brown'}}>
+                            Image size should be less than 10MB
+                          </p>
                         </div>
                         <div className="post-image-input" style={{marginTop: "10px"}}>
                           <input
@@ -127,15 +142,17 @@ export default class AddPost extends Component {
                             onChange={(event) => {
                               const [file] = event.target.files;
                               this.setState({
+                                imageSize: event.target.files[0].size,
                                 postImageSelected: event.target.files[0],
                                 postImage: URL.createObjectURL(file)
                               });
-                            }} 
+                            }}
                             required
+                            // required={this.state.postImage != '' ? true:false}
                           />
                           <p>
                             <label
-                              className="btn btn-info" 
+                              className="btn btn-info"
                               htmlFor="postImage"
                             >
                               Add picture
@@ -145,7 +162,7 @@ export default class AddPost extends Component {
                         <ErrorMessage name="postImage" component="span" />
                       </div>
 
-                      <Field 
+                      <Field
                       className="postfield"
                       name="posttitle"
                       id="posttitle"
@@ -172,7 +189,7 @@ export default class AddPost extends Component {
                       placeholder="Give your trip locations seperated by commas"
                       />
                       <ErrorMessage name="postlocation" component="span" />
-                      
+
                     <button type='submit' className="btn btn-success btn-lg btn-block">Create</button>
                     </Form>
                   </Formik>

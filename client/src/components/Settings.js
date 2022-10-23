@@ -234,12 +234,23 @@ export default class Settings extends Component {
                       accept="image/*"
                       type="file"
                       onChange={(event) => {
-                        const [file] = event.target.files;
-                        this.setState({
-                          imageSelected: event.target.files[0],
-                          profilePicture: URL.createObjectURL(file),
-                          newUploaded: true
-                        });
+                        if(event.target.files[0].size > 10380902){
+                          swal({
+                            title: "Image too large",
+                            text: "Image size should be less tha 10MB",
+                            icon: "warning",
+                            timer: 5000,
+                            button: false,
+                          });
+                        }
+                        else{
+                          const [file] = event.target.files;
+                          this.setState({
+                            imageSelected: event.target.files[0],
+                            profilePicture: URL.createObjectURL(file),
+                            newUploaded: true
+                          });
+                        }
                       }}
                     />
                     <p style={{ textAlign: "center" }}>
