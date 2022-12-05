@@ -16,6 +16,12 @@ export default class Navbar extends Component {
         }
     }
 
+    logOut = () => {
+        sessionStorage.removeItem('accessToken'); 
+        sessionStorage.clear(); 
+        this.props.navigate("/")
+    }
+
     initiateSearch = (event) => {
         event.preventDefault()
         var search = document.getElementById("search-text").value;
@@ -90,6 +96,9 @@ export default class Navbar extends Component {
                             <li id='home-page' className="nav-item active">
                                 <Link className="nav-link" aria-current="page" to="/home">Home</Link>
                             </li>
+                            {/* <li id='chat-page' className='nav-item'>
+                                <Link className='nav-link' aria-current="page" to="/chat">Chat</Link>
+                            </li> */}
                             <li id='contact-page' className="nav-item">
                                 <Link className="nav-link" aria-current="page" to="/contact">Contact Us</Link>
                             </li>
@@ -107,6 +116,11 @@ export default class Navbar extends Component {
                             <input id='search-text' className="form-control mr-sm-2" type="search" placeholder="Search location" aria-label="Search" />
                             <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={(event) => this.initiateSearch(event)}>Search</button>
                         </form>
+                        <button onClick={this.logOut}
+                        style={{padding: '1em', backgroundColor: 'transparent', 
+                        border: 'none', color: 'red', cursor: 'pointer', fontWeight: 'bold'}}>
+                            Logout
+                        </button>
                     </div>
                 </nav>
             </div>
