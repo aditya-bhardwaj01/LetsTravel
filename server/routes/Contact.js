@@ -19,7 +19,6 @@ var transporter = nodemailer.createTransport({
   });
 
 router.post("/", async (req, res) => {
-  console.log(req.body.data);
     var mailOptions = {
         from: 'letstravel010101@gmail.com',
         to: 'kumarrahul32323233@gmail.com',

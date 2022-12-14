@@ -29,6 +29,9 @@ app.use("/profile", profileRouter);
 const searchResult = require("./routes/SearchResult");
 app.use("/searchResult", searchResult);
 
+const chatResult = require("./routes/ChatResult");
+app.use("/chatResult", chatResult);
+
 
 app.listen(3001, ()=>{
     console.log("Server listening on port 3001");

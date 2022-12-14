@@ -540,3 +540,230 @@ input[type="file"] {
     font-size: 16px;
   }
 }
+
+/* Chat page */
+.Chat{
+  background-color: #1F1F25;
+  border-bottom: solid #1F1F25;
+  min-height: 100vh;
+  color: white;
+}
+
+.no-contact-history{
+  text-align: center;
+  margin-top: 2em;
+  color: grey;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.friendList{
+  min-height: 70vh;
+  overflow-y: hidden;
+  text-align: center;
+  margin-top: 1em;
+  margin: 4em;
+  border: solid grey;
+  border-width: 0.1px;
+  border-radius: 10px;
+}
+
+.friendList-left{
+  border-right: solid grey;
+  border-width: 0.1px;
+  padding: 1em;
+}
+
+#searchContact{
+  text-align: left;
+}
+#searchContact input{
+  height: 40px;
+  width: 100%;
+  background-color: #313237;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+  padding: 0.3em;
+}
+
+.friendList-right{
+  padding: 1em;
+}
+
+#friend-single{
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 0.5em 0;
+  padding: 1em;
+  text-align: left;
+}
+#friend-single:hover{
+  background-color: rgba(128,128,128, 0.5);
+}
+
+#friend-single-image img{
+  height: 2.2em;
+  width: 2.2em;
+  border-radius: 25px;
+  margin-right: 8px;
+}
+#friend-single-username{
+  font-size: 1.3em;
+  font-family: 'Courier New', Courier, monospace;
+  color: white;
+}
+
+#msg-will-appear-img img{
+  height: 8em;
+  width: 9em;
+}
+
+#msg-will-appear-text{
+  color: grey;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#msg-shown{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* border: solid red; */
+}
+
+#contactheader{
+  text-align: left;
+  /* border: solid green; */
+}
+
+#msg-displaying{
+  /* border: solid blue; */
+}
+#type-msg-section{
+  /* border: solid pink; */
+}
+
+#contactheader img{
+  height: 2em;
+  width: 2em;
+}
+#contactheader-name{
+  color: white;
+}
+
+#msg-single{
+  margin: 1em 0;
+}
+
+#msg-span{
+  color: white;
+}
+#msg-span img{
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+}
+
+#type-msg-section{
+  /* border: solid red; */
+  padding: 5px;
+  text-align: left;
+  margin-top: auto;
+}
+#msg-to-send{
+  height: 35px;
+  width: 93%;
+  background-color: #313237;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+  padding: 0.3em;
+}
+#type-msg-section span{
+  width: 6%;
+  position: absolute;
+  right: 1em;
+}
+
+@media (max-width: 1000px) {
+  #msg-to-send{
+    width: 85%;
+    font-size: 20px;
+  }
+  #type-msg-section span{
+    width: 8%;
+    position: absolute;
+    right: 3em;
+  }
+}
+
+@media (max-width: 768px) {
+  .friendList{
+    margin: 4em 0.3em;
+  }
+  #friend-single{
+    margin: 1.2em 0;
+    padding: 0.2em;
+  }
+  #friend-single-image img{
+    height: 1.7em;
+    width: 1.7em;
+  }
+  #friend-single-username{
+    font-size: 1em;
+  }
+  .friendList-left{
+    padding: 0.5em;
+  }
+  #searchContact input{
+    height: 30px;
+    width: 100%;
+    font-size: 15px;
+    padding: 0.1em;
+  }
+  #msg-will-appear-img img{
+    height: 3em;
+    width: 4em;
+  }
+  
+  #msg-will-appear-text{
+    color: grey;
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
+
+@media (max-width: 680px) {
+  #type-msg-section{
+    padding: 1px;
+  }
+  #msg-to-send{
+    width: 85%;
+    font-size: 20px;
+  }
+  #type-msg-section span{
+    width: 10%;
+    position: absolute;
+    right: 1em;
+  }
+}
+
+@media (max-width: 498px) {
+  #type-msg-section{
+    padding: 1px;
+  }
+  #msg-to-send{
+    width: 75%;
+    font-size: 20px;
+  }
+  #type-msg-section span{
+    width: 15%;
+    position: absolute;
+    right: 1em;
+  }
+}

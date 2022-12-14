@@ -96,9 +96,9 @@ export default class Navbar extends Component {
                             <li id='home-page' className="nav-item active">
                                 <Link className="nav-link" aria-current="page" to="/home">Home</Link>
                             </li>
-                            {/* <li id='chat-page' className='nav-item'>
+                            <li id='chat-page' className='nav-item'>
                                 <Link className='nav-link' aria-current="page" to="/chat">Chat</Link>
-                            </li> */}
+                            </li>
                             <li id='contact-page' className="nav-item">
                                 <Link className="nav-link" aria-current="page" to="/contact">Contact Us</Link>
                             </li>
@@ -112,12 +112,12 @@ export default class Navbar extends Component {
                                 </Link>
                             </li>
                         </ul>
-                        <form className="form-inline my-2 my-lg-0">
+                        <form className="form-inline my-2 my-lg-0" style={{marginRight: '3px'}}>
                             <input id='search-text' className="form-control mr-sm-2" type="search" placeholder="Search location" aria-label="Search" />
                             <button className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={(event) => this.initiateSearch(event)}>Search</button>
                         </form>
                         <button onClick={this.logOut}
-                        style={{padding: '1em', backgroundColor: 'transparent', 
+                        style={{backgroundColor: 'transparent', 
                         border: 'none', color: 'red', cursor: 'pointer', fontWeight: 'bold'}}>
                             Logout
                         </button>

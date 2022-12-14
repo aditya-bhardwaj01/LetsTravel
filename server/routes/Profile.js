@@ -72,7 +72,6 @@ const deleteComment = (res, postId) => {
 }
 
 const addPost = (res, imageUrl, formData, validToken, profilepic) => {
-    console.log(formData.posttext, imageUrl, validToken.username, validToken.id, formData.posttitle, formData.location, profilepic.userimage)
     return new Promise((resolve, reject) => {
         db.query("insert into post (post_text, post_images, username, userid, post_title, location, userimage) values (?, ?, ?, ?, ?, ?, ?)", 
         [formData.posttext, imageUrl, validToken.username, validToken.id, formData.posttitle, formData.postlocation, profilepic.userimage],
