@@ -262,6 +262,7 @@ span{
   text-align: center;
 }
 .left-about{
+  word-break: break-all;
   font-size: 16px;
   font-style: italic;
   min-height: 120px;
@@ -559,7 +560,6 @@ input[type="file"] {
 
 .friendList{
   min-height: 70vh;
-  overflow-y: hidden;
   text-align: center;
   margin-top: 1em;
   margin: 4em;
@@ -640,8 +640,19 @@ input[type="file"] {
 }
 
 #msg-displaying{
-  /* border: solid blue; */
+  height: 50vh;
+  overflow-y: scroll;
 }
+
+#msg-displaying::-webkit-scrollbar {
+  display: none;
+}
+
+#msg-displaying {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;
+}
+
 #type-msg-section{
   /* border: solid pink; */
 }
@@ -655,6 +666,7 @@ input[type="file"] {
 }
 
 #msg-single{
+  word-break: break-all;
   margin: 1em 0;
 }
 
@@ -716,6 +728,7 @@ input[type="file"] {
   }
   #friend-single-username{
     font-size: 1em;
+    word-break: break-all;
   }
   .friendList-left{
     padding: 0.5em;

@@ -126,13 +126,14 @@ router.post('/addMessage', (req, res) => {
     const validToken = verify(accessToken, 'chalaaja')
     const receiverId = req.body.receiverId
     const newMessage = req.body.newMessage
-    const messages = {}
+    const newDetails = {}
 
     const execute = async () => {
         await addMessage(validToken, receiverId, newMessage, res);
         await updateContactDate(validToken, receiverId, res);
-        //await getMessages();
-        res.json(messages)
+        await getMessages(validToken, res, receiverId, newDetails);
+        await getContactsId(validToken, res, newDetails)
+        res.json(newDetails)
     }
 
     execute()

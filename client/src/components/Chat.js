@@ -23,6 +23,15 @@ class Chat extends Component {
         }
     }
 
+    clickSend = (e) => {
+        var key = e.which;
+        if(key === 13)  
+        {
+            this.sendMessage();
+            return false;  
+        }
+    }
+
     sendMessage = () => {
         var newMsg = document.getElementById('msg-to-send').value;
         document.getElementById('msg-to-send').value = '';
@@ -43,10 +52,14 @@ class Chat extends Component {
                     })
                 }
                 else{
-                    console.log(response.data)
+                    this.setState({
+                        messages: response.data.messages,
+                        friends: response.data.details
+                    })
                 }
             })
-        
+            var objDiv = document.getElementById("msg-displaying");
+            objDiv.scrollTop = objDiv.scrollHeight;
     }
 
     fetchMessages = (contactId) => {
@@ -185,7 +198,7 @@ class Chat extends Component {
                                                 })}
                                             </div>
                                             <div id="type-msg-section">
-                                                <input type="text" placeholder='Message' id='msg-to-send' />
+                                                <input type="text" placeholder='Message' id='msg-to-send' onKeyDown={(event) => this.clickSend(event)} />
                                                 <span type="button" className="btn btn-info btn-sm" onClick={this.sendMessage}>
                                                     <i className="fa fa-paper-plane" aria-hidden="true"></i>
                                                 </span>
