@@ -19,7 +19,8 @@ class Chat extends Component {
             myusername: "",
             loading: false,
             friends: [],
-            messages: []
+            messages: [],
+            searchResult: []
         }
     }
 
@@ -90,6 +91,20 @@ class Chat extends Component {
             })
     }
 
+    searchResult = (event) => {
+        var searchedText = event.target.value
+        axios
+        .post('http://localhost:3001/chatResult/searchResult', {
+            searchedText: searchedText,
+            accessToken: sessionStorage.getItem('accessToken')
+        })
+        .then((response) => {
+            this.setState({
+
+            })
+        })
+    }
+
     async componentDidMount() {
         this.setState({ loading: true })
         axios
@@ -126,7 +141,7 @@ class Chat extends Component {
                         <div className='friendList row'>
                             <div className="col-5 friendList-left">
                                 <div id='searchContact'>
-                                    <input type="text" placeholder='&#x1F50D;Search' />
+                                    <input type="text" placeholder='&#x1F50D;Search' onChange={this.searchResult} />
                                 </div>
                                 {
                                     /* <p style={{backgroundColor: 'white', margin: 0, color: 'black'}}>Result1</p>

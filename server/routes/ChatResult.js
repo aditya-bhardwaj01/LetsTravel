@@ -94,6 +94,21 @@ const updateContactDate = (validToken, receiverId, res) => {
     })
 }
 
+const getSearchedContacts = (res, validToken, searchedText, searchResults) => {
+    return new Promise((resolve, reject) => {
+        db.query('select id, username, profile_pic from user where username like ? and username!=? order by username asc', [searchedText+'%', validToken.username], 
+        (err, result) => {
+            if(err){
+                res.json({error: "Unable to fetch results"})
+            }
+            else{
+                searchResults.results = result
+                resolve("SUCCESS")
+            }
+        })
+    })
+}
+
 router.post('/contacts', (req, res) => {
     const accessToken = req.body.accessToken
     const validToken = verify(accessToken, "chalaaja")
@@ -134,6 +149,21 @@ router.post('/addMessage', (req, res) => {
         await getMessages(validToken, res, receiverId, newDetails);
         await getContactsId(validToken, res, newDetails)
         res.json(newDetails)
+    }
+
+    execute()
+})
+
+router.post('/searchResult', (req, res) => {
+    const accessToken = req.body.accessToken
+    const validToken = verify(accessToken, 'chalaaja')
+    const searchedText = req.body.searchedText
+
+    const searchResults = {}
+
+    const execute = async () => {
+        await getSearchedContacts(res, validToken, searchedText, searchResults)
+        res.json(searchResults)
     }
 
     execute()
