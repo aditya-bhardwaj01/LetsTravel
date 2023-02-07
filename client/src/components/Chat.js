@@ -26,10 +26,9 @@ class Chat extends Component {
 
     clickSend = (e) => {
         var key = e.which;
-        if(key === 13)  
-        {
+        if (key === 13) {
             this.sendMessage();
-            return false;  
+            return false;
         }
     }
 
@@ -43,7 +42,7 @@ class Chat extends Component {
                 newMessage: newMsg
             })
             .then((response) => {
-                if(response.data.error) {
+                if (response.data.error) {
                     swal({
                         title: "Error!",
                         text: response.data.error,
@@ -52,19 +51,19 @@ class Chat extends Component {
                         button: false
                     })
                 }
-                else{
+                else {
                     this.setState({
                         messages: response.data.messages,
                         friends: response.data.details
                     })
                 }
             })
-            var objDiv = document.getElementById("msg-displaying");
-            objDiv.scrollTop = objDiv.scrollHeight;
+        var objDiv = document.getElementById("msg-displaying");
+        objDiv.scrollTop = objDiv.scrollHeight;
     }
 
     fetchMessages = (contactId) => {
-        document.getElementById('chat-load-gif'+contactId).getElementsByTagName('img')[0].style.display = 'inline';
+        document.getElementById('chat-load-gif' + contactId).getElementsByTagName('img')[0].style.display = 'inline';
         this.setState({ currentContact: contactId })
         axios
             .post('http://localhost:3001/chatResult/message', {
@@ -72,7 +71,7 @@ class Chat extends Component {
                 contactId: contactId
             })
             .then((response) => {
-                document.getElementById('chat-load-gif'+contactId).getElementsByTagName('img')[0].style.display = 'none';
+                document.getElementById('chat-load-gif' + contactId).getElementsByTagName('img')[0].style.display = 'none';
                 if (response.data.error) {
                     swal({
                         title: "Error!",
@@ -93,16 +92,55 @@ class Chat extends Component {
 
     searchResult = (event) => {
         var searchedText = event.target.value
-        axios
-        .post('http://localhost:3001/chatResult/searchResult', {
-            searchedText: searchedText,
-            accessToken: sessionStorage.getItem('accessToken')
-        })
-        .then((response) => {
-            this.setState({
+        var searchShow = document.getElementById('search-show-out')
+        if (searchedText !== "") searchShow.style.display = 'block';
+        else searchShow.style.display = 'none';
 
+        axios
+            .post('http://localhost:3001/chatResult/searchResult', {
+                searchedText: searchedText,
+                accessToken: sessionStorage.getItem('accessToken')
             })
-        })
+            .then((response) => {
+                const toShow = [];
+                const usernames = [];
+                this.state.friends.forEach(element => {
+                    usernames.push(element.username)
+                });
+                response.data.results.forEach(user => {
+                    if (!usernames.includes(user.username)) toShow.push(user)
+                });
+
+                this.setState({
+                    searchResult: toShow
+                })
+            })
+    }
+
+    goToProfile = (username) => {
+        this.props.navigate("/profile/" + username);
+    }
+
+    addContacts = (id) =>{
+        document.getElementById('search-show-out').style.display = 'none';
+        axios
+            .post('http://localhost:3001/chatResult/addContacts', {
+                contactId: id,
+                accessToken: sessionStorage.getItem('accessToken')
+            })
+            .then((response) => {
+                if(response.data.error){
+                    console.log(response.data.error)
+                }
+                else{
+                    this.setState({
+                        currentContactUsername: response.data.contactUsername,
+                        currentContactProfilePic: response.data.contactProfilepic,
+                        messages: response.data.messages,
+                        friends: response.data.details
+                    })
+                }
+            })
     }
 
     async componentDidMount() {
@@ -143,10 +181,26 @@ class Chat extends Component {
                                 <div id='searchContact'>
                                     <input type="text" placeholder='&#x1F50D;Search' onChange={this.searchResult} />
                                 </div>
-                                {
-                                    /* <p style={{backgroundColor: 'white', margin: 0, color: 'black'}}>Result1</p>
-                                    <p style={{backgroundColor: 'white', margin: 0, color: 'black'}}>Result2</p> */
-                                }
+                                <div id="search-show-out">
+                                    {
+                                        this.state.searchResult.map((result) => {
+                                            return <div id="search-show">
+                                                <div className="row">
+                                                    <div className="col-sm-8" style={{ textAlign: 'left' }}>
+                                                        <img className='img-fluid' src={result.profile_pic === "" ? profile : result.profile_pic} alt="Profile pic" />
+                                                        {result.username}
+                                                    </div>
+                                                    <div className="col-sm-4" style={{ textAlign: 'right' }}>
+                                                        <button className="button-29" role="button" onClick={() => this.addContacts(result.id)}>
+                                                            Say Hi!
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <hr style={{ backgroundColor: 'white' }} />
+                                            </div>
+                                        })
+                                    }
+                                </div>
                                 {this.state.friends.length === 0 ?
                                     <div className='no-contact-history'>
                                         No contact history
@@ -160,10 +214,10 @@ class Chat extends Component {
                                                 </span>
                                                 <span id='friend-single-username'>
                                                     {element.username}
-                                                    <span id={"chat-load-gif"+element.person2} className='img-fluid'>
+                                                    <span id={"chat-load-gif" + element.person2} className='img-fluid'>
                                                         <img
-                                                        style={{height: '20px', width: '20px', marginLeft: '5px', display: 'none'}}
-                                                        src={chatLoad} alt="Loading Chat" />
+                                                            style={{ height: '20px', width: '20px', marginLeft: '5px', display: 'none' }}
+                                                            src={chatLoad} alt="Loading Chat" />
                                                     </span>
                                                 </span>
                                             </div>
@@ -193,6 +247,7 @@ class Chat extends Component {
                                                 <img
                                                     src={this.state.currentContactProfilePic === '' ? profile : this.state.currentContactProfilePic}
                                                     alt='Profile Pic'
+                                                    onClick={() => this.goToProfile(this.state.currentContactUsername)}
                                                 />
                                                 <span id="contactheader-name">
                                                     {this.state.currentContactUsername}
@@ -205,10 +260,34 @@ class Chat extends Component {
                                                         style={this.state.myusername === element.username ?
                                                             { textAlign: 'right' } : { textAlign: 'left' }}
                                                     >
-                                                        <span id='msg-span'>
-                                                            <img src={element.profile_pic === '' ? profile : element.profile_pic} alt='Profile pic' />
-                                                            {element.message}
-                                                        </span>
+                                                        {this.state.myusername === element.username ?
+                                                            <p id='msg-span'>
+                                                                <p style={{marginRight: '5px'}}>{element.message}</p>
+                                                                <img src={element.profile_pic === '' ? profile : element.profile_pic} alt='Profile pic'
+                                                                    onClick={
+                                                                        () => 
+                                                                        this.goToProfile(
+                                                                            this.state.myusername === element.username ? 
+                                                                            this.state.myusername :
+                                                                            this.state.currentContactUsername
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </p> :
+                                                            <p id='msg-span'>
+                                                                <img src={element.profile_pic === '' ? profile : element.profile_pic} alt='Profile pic'
+                                                                    onClick={
+                                                                        () => 
+                                                                        this.goToProfile(
+                                                                            this.state.myusername === element.username ? 
+                                                                            this.state.myusername :
+                                                                            this.state.currentContactUsername
+                                                                        )
+                                                                    }
+                                                                />
+                                                                <p style={{marginLeft: '5px'}}>{element.message}</p>
+                                                            </p>}
+
                                                     </div>
                                                 })}
                                             </div>

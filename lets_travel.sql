@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2022 at 06:02 PM
+-- Generation Time: Feb 07, 2023 at 12:41 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -64,10 +64,13 @@ CREATE TABLE `contacts` (
 --
 
 INSERT INTO `contacts` (`id`, `person1`, `person2`, `date`) VALUES
-(1, 1, 2, '2022-12-06 23:48:27'),
-(2, 1, 4, '2022-12-06 23:48:35'),
-(3, 1, 9, '2022-12-06 23:48:45'),
-(4, 4, 2, '2022-12-11 21:34:57');
+(1, 1, 2, '2022-12-15 23:00:12'),
+(2, 1, 4, '2023-02-07 16:17:05'),
+(3, 1, 9, '2023-01-14 15:53:39'),
+(4, 4, 2, '2022-12-19 22:03:58'),
+(27, 11, 4, '2023-02-07 16:46:21'),
+(28, 11, 9, '2023-02-07 16:51:44'),
+(29, 11, 2, '2023-02-07 17:09:33');
 
 -- --------------------------------------------------------
 
@@ -93,7 +96,57 @@ INSERT INTO `messages` (`id`, `sender_id`, `receiver_id`, `message`, `date`) VAL
 (3, 2, 1, 'Hello, how are you?', '2022-12-09 23:27:07'),
 (4, 9, 1, 'Hey Aditya!', '2022-12-10 23:24:34'),
 (5, 4, 1, 'Whats up!', '2022-12-11 21:13:44'),
-(6, 4, 2, 'Fuck off!', '2022-12-11 21:35:27');
+(6, 4, 2, 'Fuck off!', '2022-12-11 21:35:27'),
+(7, 4, 1, 'hlo bhai', '2022-12-14 23:21:37'),
+(8, 1, 4, 'ha bol bhai', '2022-12-14 23:22:22'),
+(9, 4, 2, 'xyz', '2022-12-14 23:22:54'),
+(10, 2, 4, 'abcd', '2022-12-14 23:23:27'),
+(11, 4, 1, 'vvvvv', '2022-12-14 23:24:37'),
+(12, 4, 1, 'hey aditya...!!', '2022-12-14 23:51:30'),
+(13, 4, 2, 'hey!', '2022-12-14 23:51:54'),
+(14, 4, 2, 'aaa', '2022-12-14 23:52:57'),
+(15, 4, 2, 'aaa', '2022-12-14 23:52:59'),
+(16, 4, 2, 'aaa', '2022-12-14 23:53:00'),
+(17, 4, 2, 'aaaa', '2022-12-14 23:53:02'),
+(18, 4, 2, 'aaaa', '2022-12-14 23:53:03'),
+(19, 4, 2, 'aaaa', '2022-12-14 23:53:05'),
+(20, 4, 2, 'aaa', '2022-12-14 23:53:06'),
+(21, 4, 1, 'sss', '2022-12-15 22:54:59'),
+(22, 1, 4, 'eee', '2022-12-15 22:55:45'),
+(23, 1, 2, 'hii', '2022-12-15 22:58:41'),
+(24, 1, 4, 'hlo', '2022-12-15 22:58:51'),
+(25, 1, 9, 'hey...!!', '2022-12-15 22:58:59'),
+(26, 1, 2, 'hlo', '2022-12-15 22:59:22'),
+(27, 1, 2, 'aaaa', '2022-12-15 22:59:28'),
+(28, 2, 1, 'yes', '2022-12-15 23:00:12'),
+(29, 2, 4, 'hii', '2022-12-15 23:00:17'),
+(30, 9, 1, 'hlo', '2022-12-15 23:00:48'),
+(31, 9, 1, 'hlo', '2022-12-15 23:07:54'),
+(32, 1, 9, 'cccc', '2022-12-15 23:08:09'),
+(36, 4, 1, 'hlo', '2022-12-15 23:39:26'),
+(37, 4, 2, 'eee', '2022-12-15 23:44:34'),
+(38, 4, 1, 'rrrr', '2022-12-15 23:44:45'),
+(39, 4, 1, 'ggg', '2022-12-15 23:44:53'),
+(40, 2, 4, 'ffff', '2022-12-15 23:45:27'),
+(41, 2, 4, 'iiiii', '2022-12-15 23:45:33'),
+(42, 2, 4, 'rrrr', '2022-12-15 23:45:52'),
+(43, 2, 4, 'acddd', '2022-12-15 23:46:18'),
+(45, 4, 2, 'hii', '2022-12-19 22:03:58'),
+(46, 4, 1, 'acddd', '2022-12-19 22:06:23'),
+(47, 1, 9, 'gggf', '2022-12-30 10:17:33'),
+(48, 1, 4, 'abcdefghijklmnopqrstuvwxyz', '2022-12-30 10:22:53'),
+(49, 1, 4, 'abcdefghijklmnopqrstuvwxyz', '2022-12-30 10:23:24'),
+(50, 1, 4, '!@#$%^&8()_+{}|[]\\:\";\'<>?,./~`', '2022-12-30 10:24:39'),
+(51, 9, 1, '>>>', '2023-01-14 15:14:41'),
+(52, 9, 1, 'zfgthryhtjnyujyujyu', '2023-01-14 15:42:39'),
+(54, 1, 9, 'kjdfci', '2023-01-14 15:53:39'),
+(55, 1, 4, 'a', '2023-02-07 16:17:05'),
+(72, 11, 4, 'Hi!', '2023-02-07 16:46:03'),
+(73, 4, 11, 'hii', '2023-02-07 16:46:21'),
+(74, 11, 9, 'Hi!', '2023-02-07 16:47:30'),
+(75, 9, 11, 'Yes?', '2023-02-07 16:51:44'),
+(76, 11, 2, 'Hi!', '2023-02-07 17:09:16'),
+(77, 2, 11, 'efwguyfwf', '2023-02-07 17:09:33');
 
 -- --------------------------------------------------------
 
@@ -124,7 +177,7 @@ INSERT INTO `post` (`id`, `post_text`, `post_images`, `username`, `userid`, `pos
 (19, 'Italy, a European country with a long Mediterranean coastline, has left a powerful mark on Western culture and cuisine. Its capital, Rome, is home to the Vatican as well as landmark art and ancient ruins. Other major cities include Florence, with Renaissance masterpieces such as Michelangelo’s \"David\" and Brunelleschi\'s Duomo; Venice, the city of canals; and Milan, Italy’s fashion capital.', 'https://images.news18.com/ibnlive/uploads/2022/06/italy-tourism-16555496593x2.jpg?impolicy=website&width=510&height=356', 'ayushi1407', 2, 'Trip to Italy.', 'Italy', '2022-09-05 14:45:17', 'https://res.cloudinary.com/dbcpdiy45/image/upload/v1666498178/yd3xbwrijsclattqqtmu.jpg'),
 (20, 'The country is a federal republic composed of 26 cantons, with federal authorities based in Bern. Switzerland is bordered by Italy to the south, France to the west, Germany to the north and Austria and Liechtenstein to the east.', 'https://s30876.pcdn.co/wp-content/uploads/Switzerland-e1634207571492-1170x630.jpg.webp', 'ayushi1407', 2, 'Trip to Switzerland.', 'Bern, Switzerland', '2022-09-05 14:45:17', 'https://res.cloudinary.com/dbcpdiy45/image/upload/v1666498178/yd3xbwrijsclattqqtmu.jpg'),
 (58, 'It is an awesome library', 'https://res.cloudinary.com/dbcpdiy45/image/upload/v1665830816/cszticbeinaouoxp6hdm.png', 'aditya123', 1, 'React', 'Chennai', '2022-10-15 16:16:56', 'https://res.cloudinary.com/dbcpdiy45/image/upload/v1665914876/qkri1qzk4krnpswtrmpp.jpg'),
-(67, 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary', 'https://res.cloudinary.com/dbcpdiy45/image/upload/v1666499955/jv8oeeyhuw9xcq0lvdd8.jpg', 'arun123', 9, 'Abcde', 'dvf,fdcwe', '2022-10-23 10:09:15', 'https://res.cloudinary.com/dbcpdiy45/image/upload/v1666500253/l8dpuzpouyg2s6qfwfp0.jpg');
+(67, 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary', 'https://res.cloudinary.com/dbcpdiy45/image/upload/v1666499955/jv8oeeyhuw9xcq0lvdd8.jpg', 'arun123', 9, 'Trip to Gujarat', 'Gujarat', '2022-10-23 10:09:15', 'https://res.cloudinary.com/dbcpdiy45/image/upload/v1666500253/l8dpuzpouyg2s6qfwfp0.jpg');
 
 -- --------------------------------------------------------
 
@@ -155,9 +208,11 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `password`, `name`, `email`, `phone`, `profile_pic`, `about`, `skills`, `profession`, `city`, `state`, `country`, `zip_code`) VALUES
 (1, 'aditya123', '$2b$10$NZnmlMqUtg6BSToV3S6QZOGU5dkvqPHPiUwSZ46.QTk70B3YDwj1W', 'Aditya Bhardwaj', 'adibhardwaj444@gmail.com', '7256891970', 'https://res.cloudinary.com/dbcpdiy45/image/upload/v1665914876/qkri1qzk4krnpswtrmpp.jpg', 'Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident', 'Cricket', 'CSE student', 'Ranchi', 'Jharkhand', 'India', '835101'),
-(2, 'ayushi1407', '$2b$10$ZA8hWol1ShjRGA9EPg5HjONPawSEIeur6L8icPhSmIhuudxB40N4q', 'Ayushi Bhardwaj', 'ayushi@gmail.com', '9534208976', 'https://res.cloudinary.com/dbcpdiy45/image/upload/v1666498178/yd3xbwrijsclattqqtmu.jpg', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.', 'Singing', 'Software developer', 'RANCHI', 'Jharkhand', 'India', '835101'),
+(2, 'ayushi1407', '$2b$10$ZA8hWol1ShjRGA9EPg5HjONPawSEIeur6L8icPhSmIhuudxB40N4q', 'Ayushi Bhardwaj', 'ayushi@gmail.com', '9431580952', 'https://res.cloudinary.com/dbcpdiy45/image/upload/v1666498178/yd3xbwrijsclattqqtmu.jpg', 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.', 'Singing', 'Software developer', 'RANCHI', 'Jharkhand', 'India', '835101'),
 (4, 'rahul123', '$2b$10$wqPKTf6LycSjswifL2nTPuylZUoLl3ZWgXBH6XYgIbGFZaJkP3mQW', 'Rahul Kumar', 'rahul@gmail.com', '6209816273', '', 'Filler text is text that shares some characteristics of a real written text, but is random or otherwise generated. It may be used to display a sample of fonts, generate text for testing, or to spoof an e-mail', NULL, 'Back end developer', 'Mumbai', 'Maharashtra', NULL, NULL),
-(9, 'arun123', '$2b$10$r3ZBIKbKkOQbhtPYZjokUus6XQSb4qBa7QAOiOVl2vQFQUiOR2OVq', 'Arun Kumar', 'arun123@gmail.com', '8091892028', 'https://res.cloudinary.com/dbcpdiy45/image/upload/v1666500253/l8dpuzpouyg2s6qfwfp0.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(9, 'arun123', '$2b$10$r3ZBIKbKkOQbhtPYZjokUus6XQSb4qBa7QAOiOVl2vQFQUiOR2OVq', 'Arun Kumar', 'arun123@gmail.com', '8091892028', 'https://res.cloudinary.com/dbcpdiy45/image/upload/v1666500253/l8dpuzpouyg2s6qfwfp0.jpg', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 'sibhu', '$2b$10$gNbU6Wmc.cQ2z.AYAqJpHeTB4suXoY1Tqbvw4s5mQJcugLrYWSaou', 'sibhu', 'Subhanshu.bh@gmail.com', '9876543410', 'https://res.cloudinary.com/dbcpdiy45/image/upload/v1672375559/nhal6te52twdlgbqn1g8.jpg', NULL, 'playing cricket', NULL, NULL, NULL, NULL, NULL),
+(11, 'abcd', '$2b$10$Elgc2gD3ZqQ3O1R2hYR0YuqJiBPasGN5BhUE6nLx1BJAZQJgXe4by', 'Aditya Bhardwaj', 'aditya.bhardwaj2020@vitstudent.ac.in', '7256891970', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -201,19 +256,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `post`
@@ -225,7 +280,7 @@ ALTER TABLE `post`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

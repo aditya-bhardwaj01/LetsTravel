@@ -65,6 +65,7 @@ const getMessages = (validToken, res, contactId, messages) => {
 }
 
 const addMessage = (validToken, receiverId, newMessage, res) => {
+    console.log(newMessage)
     return new Promise((resolve, reject) => {
         db.query('insert into messages(sender_id, receiver_id, message) values (?,?,?)', 
         [validToken.id, receiverId, newMessage], 
@@ -96,7 +97,8 @@ const updateContactDate = (validToken, receiverId, res) => {
 
 const getSearchedContacts = (res, validToken, searchedText, searchResults) => {
     return new Promise((resolve, reject) => {
-        db.query('select id, username, profile_pic from user where username like ? and username!=? order by username asc', [searchedText+'%', validToken.username], 
+        db.query('select id, username, profile_pic from user where username like ? and username!=? order by username asc', 
+        [searchedText+'%', validToken.username], 
         (err, result) => {
             if(err){
                 res.json({error: "Unable to fetch results"})
@@ -104,6 +106,18 @@ const getSearchedContacts = (res, validToken, searchedText, searchResults) => {
             else{
                 searchResults.results = result
                 resolve("SUCCESS")
+            }
+        })
+    })
+}
+
+const addContacts = (contactId, validToken, res) => {
+    return new Promise((resolve, reject) => {
+        db.query('insert into contacts(person1, person2) values(?, ?)', [validToken.id, contactId], (err, result) => {
+            if(err) {
+                res.json({error: "Can't send message at the moment. Please try later"});
+            } else{
+                resolve("SUCCESS");
             }
         })
     })
@@ -164,6 +178,30 @@ router.post('/searchResult', (req, res) => {
     const execute = async () => {
         await getSearchedContacts(res, validToken, searchedText, searchResults)
         res.json(searchResults)
+    }
+
+    execute()
+})
+
+router.post('/addContacts', (req, res) => {
+    const contactId = req.body.contactId
+    const accessToken = req.body.accessToken
+    const validToken = verify(accessToken, 'chalaaja')
+
+    const newMessage = "Hi!"
+    const newDetails = {}
+
+    const execute = async () => {
+        await addContacts(contactId, validToken, res)
+
+        await addMessage(validToken, contactId, newMessage, res);
+        await updateContactDate(validToken, contactId, res);
+        await getMessages(validToken, res, contactId, newDetails);
+        await getContactsId(validToken, res, newDetails)
+        console.log(getContactsId)
+        res.json(newDetails)
+
+        // res.json("SUCCESS")
     }
 
     execute()
