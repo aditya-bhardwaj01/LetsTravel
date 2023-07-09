@@ -22,7 +22,7 @@ router.post("/login", (req, res) => {
         res.json({ error: "Database error" });
       } else {
 
-        if (result.length == 0) res.json({ error: "User doen't exist" })
+        if (result.length == 0) res.json({ error: "User doesn't exist" })
 
         else {
           bcrypt.compare(password, result[0]['password']).then(async (match) => {
